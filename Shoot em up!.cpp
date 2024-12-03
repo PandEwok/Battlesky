@@ -134,10 +134,23 @@ public:
         }
         else { x = texture.getSize().y; }
         sprite.setTextureRect(IntRect(0, 0, x, texture.getSize().y));
-        sprite.setOrigin(Vector2f(sprite.getTextureRect().getSize()) / 1.5f);
+        sprite.setOrigin(Vector2f(sprite.getTextureRect().getSize()) / 2.f);
         sprite.setPosition(_POS);
     }
-    ~Ammo() { cout << "\n\033[31mdeleted an ammo\033[0m\n"; }
+};
+
+class Ray : public Entity {
+public:
+    Ray(Texture _TEXTURE, Vector2f _POS, Vector2f _BEHAVIOR) : Entity(_TEXTURE, Vector2f(1.2f, 1.2f), 1, 300.f, _BEHAVIOR) {
+        int x;
+        if (texture.getSize().y > texture.getSize().x) {
+            x = texture.getSize().x;
+        }
+        else { x = texture.getSize().y; }
+        sprite.setTextureRect(IntRect(0, 0, x, texture.getSize().y));
+        sprite.setOrigin(Vector2f(sprite.getTextureRect().getSize()) / 2.f);
+        sprite.setPosition(_POS);
+    }
 };
 
 class Bonus : public Entity {
@@ -181,17 +194,18 @@ private:
     ObjectManager() {}
     vector<SFX*> explosionList = {};
     vector<Entity*> bonusList = {};
+    vector<Entity*> rayList = {};
     vector<Entity*> effectList = {};
     vector<Entity*> enemyList = {};
     vector<Entity*> playerList = {};
-    vector<vector<Entity*>*> entityList = { &playerList, &enemyList, &effectList, &bonusList };
-    Texture ammoTexture;
+    vector<vector<Entity*>*> entityList = { &playerList, &enemyList, &effectList, &rayList, &bonusList };
 public:
     enum EntityIndex {
         PLAYER = 0,
         ENEMY = 1,
         EFFECT = 2,
-        BONUS = 3
+        RAY = 3,
+        BONUS = 4
     };
     enum EnemyType {
         BASIC_SHIP = 0,
@@ -369,8 +383,8 @@ public:
         cout << "\nnew game\n";
         //title and chrono
         fontTitle.loadFromFile("Fonts/race-space/RACESPACESTRIPE.ttf");
-        title.setFont(fontTitle); title.setCharacterSize(80); title.setString("SHOOT EM UP"); title.setFillColor(Color(0, 222, 222, 255));
-        title.setOrigin(Vector2f(300.f, 40.f)); title.setPosition(Vector2f(screenWidth / 2, 100.f));
+        title.setFont(fontTitle); title.setCharacterSize(80); title.setString("BATTLESKY"); title.setFillColor(Color(0, 222, 222, 255));
+        title.setOrigin(Vector2f(250.f, 40.f)); title.setPosition(Vector2f(screenWidth / 2, 100.f));
         chronoText.setFont(fontMain); chronoText.setCharacterSize(22);
         chronoText.setPosition(Vector2f(15.f, 15.f));
         //sounds
