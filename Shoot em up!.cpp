@@ -331,6 +331,7 @@ ObjectManager* manager = ObjectManager::getInstance();
 class Game {
 private:
     Clock gameTime;
+    Clock Dash;
     Text chronoText;
     float chronoDecrease = 0;
     Clock mainClock; //clocks and cooldowns
@@ -479,6 +480,39 @@ public:
         if (Keyboard::isKeyPressed(Keyboard::Q)) {
             inputMovement += Vector2f(-1.2f, 0.f);
         }
+
+
+        if (Keyboard::isKeyPressed(Keyboard::R)) {
+            if (Dash.getElapsedTime().asSeconds() > 20) {
+                Dash.restart();
+                Vector2i posMouse = Mouse::getPosition(window);
+                float distX = posMouse.x - player.getPos().x;
+                float distY = posMouse.y - player.getPos().y;
+
+                float distance = sqrt(distX * distX+ distY * distY);
+                float distanceMax = 120;
+                
+                if (distance <= distanceMax) { 
+                    player.getSprite()->setPosition(Vector2f(posMouse.x, posMouse.y));
+                }
+                else {
+                    float directionX = (posMouse.x - player.getPos().x) / distance;
+                    float directionY = (posMouse.y - player.getPos().y) / distance;
+
+                    player.getSprite()->setPosition(
+                        player.getPos().x + directionX * distanceMax,
+                        player.getPos().y + directionY * distanceMax);
+
+
+                    //float angle = atan2(distX, distY) * 180 / 3.14159;
+                    ////setRotation(angle - 90.f);
+                    //float targetX = player.getPos().x + 120 * cos(angle);
+                    //float targetY = player.getPos().y + 120 * sin(angle);
+                    //player.getSprite()->setPosition(Vector2f(targetX, targetY));
+                }
+            }
+        }
+
         if ((Keyboard::isKeyPressed(Keyboard::Space) or Mouse::isButtonPressed(Mouse::Left)) and shootCooldown.getElapsedTime().asSeconds() > 0.25f) {
             Ammo* ammoAdded = manager->addAmmo(ammoTexture, Vector2f(player.getPos().x, player.getUp()), Vector2f(0.f, -1.f));
             /*ammoAdded->setColor(20, 255, 20);*/
