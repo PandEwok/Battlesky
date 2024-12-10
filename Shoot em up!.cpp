@@ -331,7 +331,7 @@ ObjectManager* manager = ObjectManager::getInstance();
 class Game {
 private:
     Clock gameTime;
-    Clock Dash;
+    Clock dash;
     Text chronoText;
     float chronoDecrease = 0;
     Clock mainClock; //clocks and cooldowns
@@ -359,6 +359,7 @@ private:
     Texture menuButtonOffTexture; Texture menuButtonOnTexture; Sprite menuButton; Text menuText;
     Texture resumeButtonOffTexture; Texture resumeButtonOnTexture; Sprite resumeButton; Text resumeText;
     Texture pauseExitButtonOffTexture; Texture pauseExitButtonOnTexture; Sprite pauseExitButton; Text pauseExitText;
+    Texture dashRed; Texture dashGreen; Sprite dashsprite; Sprite dashspriter; Texture dashArrow; Sprite dasharrow; Texture dashArrowr; Sprite dasharrowr;
     Text hpText; Text hpBonusText; //hp display
     Texture hpBarTexture;
     Sprite hpBar;
@@ -385,7 +386,7 @@ public:
         //title and chrono
         fontTitle.loadFromFile("Fonts/race-space/RACESPACESTRIPE.ttf");
         title.setFont(fontTitle); title.setCharacterSize(80); title.setString("BATTLESKY"); title.setFillColor(Color(0, 222, 222, 255));
-        title.setOrigin(Vector2f(250.f, 40.f)); title.setPosition(Vector2f(screenWidth / 2, 100.f));
+        title.setOrigin(Vector2f(230.f, 40.f)); title.setPosition(Vector2f(screenWidth / 2, 100.f));
         chronoText.setFont(fontMain); chronoText.setCharacterSize(22);
         chronoText.setPosition(Vector2f(15.f, 15.f));
         //sounds
@@ -413,6 +414,20 @@ public:
         playButton.setTexture(playButtonOffTexture); playButton.setOrigin(Vector2f(playButtonOffTexture.getSize())/2.f); playButton.setPosition(Vector2f(float(screenWidth/2), 410.f));
         exitButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Exit_BTN.png"); exitButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Exit_BTN_on.png");
         exitButton.setTexture(exitButtonOffTexture); exitButton.setOrigin(Vector2f(exitButtonOffTexture.getSize())/2.f); exitButton.setPosition(Vector2f(float(screenWidth / 2), 650.f));
+        //Dash
+        dashRed.loadFromFile("Images/Dashred.png"); dashGreen.loadFromFile("Images/Dashgreen.png");
+        dashsprite.setTexture(dashGreen); dashsprite.setOrigin(Vector2f(dashGreen.getSize()) / 2.f); dashsprite.setScale(Vector2f(1.5f, 1.5f));
+        dashsprite.setPosition(Vector2f(screenWidth / 2, screenHeight - dashsprite.getGlobalBounds().height/1.5f));
+        dashspriter.setTexture(dashRed); dashspriter.setOrigin(Vector2f(dashRed.getSize()) / 2.f); dashspriter.setScale(Vector2f(1.5f, 1.5f));
+        dashspriter.setPosition(Vector2f(screenWidth / 2, screenHeight - dashspriter.getGlobalBounds().height / 1.5f));
+        dashArrow.loadFromFile("Images/dasharrowG.png");
+        dasharrow.setTexture(dashArrow); dasharrow.setScale(Vector2f(1.3f, 1.3f));
+        Vector2f center = Vector2f(dashArrow.getSize()) / 2.f;
+        dasharrow.setOrigin(center.x, center.y + 40);
+        dashArrowr.loadFromFile("Images/dasharrowR.png");
+        dasharrowr.setTexture(dashArrowr); dasharrowr.setScale(Vector2f(1.3f, 1.3f));
+        Vector2f centerr = Vector2f(dashArrowr.getSize()) / 2.f;
+        dasharrowr.setOrigin(centerr.x, centerr.y + 40);
         //pause menu
         float pauseMenuOffset = 130.f;
         pauseHeaderTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Pause/Header.png");
@@ -480,19 +495,18 @@ public:
         if (Keyboard::isKeyPressed(Keyboard::Q)) {
             inputMovement += Vector2f(-1.2f, 0.f);
         }
-
-
         if (Keyboard::isKeyPressed(Keyboard::R)) {
-            if (Dash.getElapsedTime().asSeconds() > 20) {
-                Dash.restart();
+            if (dash.getElapsedTime().asSeconds() > 20) { 
+                dash.restart();
+
                 Vector2i posMouse = Mouse::getPosition(window);
                 float distX = posMouse.x - player.getPos().x;
                 float distY = posMouse.y - player.getPos().y;
 
-                float distance = sqrt(distX * distX+ distY * distY);
+                float distance = sqrt(distX * distX + distY * distY);
                 float distanceMax = 120;
-                
-                if (distance <= distanceMax) { 
+
+                if (distance <= distanceMax) {
                     player.getSprite()->setPosition(Vector2f(posMouse.x, posMouse.y));
                 }
                 else {
@@ -502,17 +516,9 @@ public:
                     player.getSprite()->setPosition(
                         player.getPos().x + directionX * distanceMax,
                         player.getPos().y + directionY * distanceMax);
-
-
-                    //float angle = atan2(distX, distY) * 180 / 3.14159;
-                    ////setRotation(angle - 90.f);
-                    //float targetX = player.getPos().x + 120 * cos(angle);
-                    //float targetY = player.getPos().y + 120 * sin(angle);
-                    //player.getSprite()->setPosition(Vector2f(targetX, targetY));
                 }
             }
         }
-
         if ((Keyboard::isKeyPressed(Keyboard::Space) or Mouse::isButtonPressed(Mouse::Left)) and shootCooldown.getElapsedTime().asSeconds() > 0.25f) {
             Ammo* ammoAdded = manager->addAmmo(ammoTexture, Vector2f(player.getPos().x, player.getUp()), Vector2f(0.f, -1.f));
             /*ammoAdded->setColor(20, 255, 20);*/
@@ -523,7 +529,7 @@ public:
 
     void update() {
         Time timeSinceLastFrame = mainClock.restart() - menuTime;
-        chronoDecrease += menuTime.asSeconds();
+        chronoDecrease += menuTime.asSeconds(); 
 
         player.move(inputMovement * timeSinceLastFrame.asSeconds());
         /*player.getHitBox();*/
@@ -531,6 +537,18 @@ public:
         if (player.getRight() < 0) { player.setX(screenWidth); }
         if (player.getUp() < 0) { player.setY(player.getHeight()/2.f); }
         if (player.getDown() > screenHeight) { player.setY(screenHeight - player.getHeight()/2.f); }
+
+        dasharrow.setPosition(player.getPos().x, player.getPos().y);
+        dasharrowr.setPosition(player.getPos().x, player.getPos().y);
+        // angle de la flèche
+        Vector2i mousePosition = Mouse::getPosition(window);
+        Vector2f spritePosition = dasharrow.getPosition(); Vector2f spritePositionr = dasharrowr.getPosition();
+        float deltaX = mousePosition.x - spritePosition.x;
+        float deltaY = mousePosition.y - spritePosition.y;
+        float angle = atan2(deltaY, deltaX);
+        float angleDeg = angle * 180 / 3.14159f;
+        dasharrow.setRotation(angleDeg+90);
+        dasharrowr.setRotation(angleDeg+90);
 
         enemiesSpawnCooldownNum += timeSinceLastFrame.asSeconds();
         bonusCooldownNum += timeSinceLastFrame.asSeconds();
@@ -816,6 +834,9 @@ public:
             if (i >= 10) { heart.setColor(Color(50, 150, 255)); }
             window.draw(heart);
         }
+        window.draw(dashsprite);
+        window.draw(dasharrow);
+        if (dash.getElapsedTime().asSeconds() < 20){window.draw(dashspriter); window.draw(dasharrowr);}
         window.draw(score);
     }
 
@@ -923,6 +944,7 @@ public:
                         uiClicSound.play();
                         for (Clock* clock : clockTab) {
                             clock->restart();
+                            dash.restart();
                         }
                         chronoDecrease = 0; enemiesSpawnCooldownNum = 0; bonusCooldownNum = 0;
                         scoreNum = 0; waveCount = 1; score.setString("SCORE : " + to_string(scoreNum) + "\n wave " + to_string(waveCount));
