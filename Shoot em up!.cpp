@@ -11,12 +11,14 @@
 #include <ctime>
 #include <conio.h>
 using namespace sf;
-using namespace std;
+using namespace std; 
 
 float screenWidth = 780.f, screenHeight = 900.f;
 RenderWindow window(VideoMode(screenWidth, screenHeight), "~Shooty~", Style::Close);
 //textures
 Texture playerShip;
+Texture playerShip1;
+Texture playerShip2;
 Texture basicShip;
 Texture specShip;
 Texture doubleBarrelShip;
@@ -28,6 +30,7 @@ Texture bossNautolanShip;
 Texture ammoTexture;
 Texture spinningAmmoTexture;
 Texture bonusHealTexture;
+int numberShip = 1;
 
 class Entity {
 protected:
@@ -108,7 +111,7 @@ class Player : public Entity {
 public:
     Player() : Entity(playerShip, Vector2f(1.5f, 1.5f), 10, 300.f, Vector2f(0.f, 1.f)) {
         sprite.setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.8f));
-    }
+}
 };
 
 class Enemy : public Entity {
@@ -349,10 +352,15 @@ private:
     Text title; //main menu's title
     int scoreNum = 0; //score display
     Text score;
+    Text descrip;
+    Text descripv; Text descripv1; Text descripv2;
     int waveCount = 1;
     Text deathText;
     Texture table;
     Texture pauseHeaderTexture; Sprite pauseHeader;
+    Texture setRightOffTexture; Texture setLeftOffTexture; Texture setRightOnTexture; Texture setLeftOnTexture; Sprite setLeft; Sprite setRight;
+    Texture cadre; Sprite cadreOn; Sprite chooseShip; Sprite chooseShip1; Sprite chooseShip2;
+    Texture descriptionTexture; Sprite description;
     Texture pauseBgTexture; Sprite pauseBg;
     Texture playButtonOffTexture; Texture playButtonOnTexture; Sprite playButton; //menu buttons
     Texture exitButtonOffTexture; Texture exitButtonOnTexture; Sprite exitButton;
@@ -409,11 +417,25 @@ public:
         score.setCharacterSize(40);
         score.setOrigin(Vector2f(100.f, 10.f));
         score.setPosition(Vector2f(float(screenWidth / 2), 10.f));
+        //Choix perso
+        setLeftOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs/Backward_BTN.png");setLeftOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs_Active/Backward_BTN.png");
+        setLeft.setTexture(setLeftOffTexture); setLeft.setOrigin(Vector2f(setLeftOffTexture.getSize()) / 2.f); setLeft.setPosition(Vector2f(float(screenWidth / 10 ), 270.f)); setLeft.setScale(0.5, 0.5);
+        setRightOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs/Forward_BTN.png"); setRightOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs_Active/Forward_BTN.png");
+        setRight.setTexture(setRightOffTexture); setRight.setOrigin(Vector2f(setRightOffTexture.getSize()) / 2.f); setRight.setPosition(Vector2f(float(screenWidth / 10*9), 270.f)); setRight.setScale(0.5, 0.5);
+        //cadre.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Hangar/Table_02.png");
+        //cadreOn.setTexture(cadre); cadreOn.setOrigin(Vector2f(cadre.getSize()) / 2.f); cadreOn.setPosition(Vector2f(float(screenWidth / 2), 270.f)); cadreOn.setScale(1.3, 1.1);
+        chooseShip.setTexture(playerShip); chooseShip.setOrigin(Vector2f(playerShip.getSize()) / 2.f); chooseShip.setPosition(Vector2f(float(screenWidth / 6 * 2), 265.f)); chooseShip.setScale(2.5, 2.5);
+        chooseShip1.setTexture(playerShip1); chooseShip1.setOrigin(Vector2f(playerShip1.getSize()) / 2.f); chooseShip1.setPosition(Vector2f(float(screenWidth / 6 * 2), 265.f)); chooseShip1.setScale(2.5, 2.5);
+        chooseShip2.setTexture(playerShip2); chooseShip2.setOrigin(Vector2f(playerShip2.getSize()) / 2.f); chooseShip2.setPosition(Vector2f(float(screenWidth / 6 * 2), 265.f)); chooseShip2.setScale(2.5, 2.5);
+        descrip.setString("Life\nDamage\nAttack Speed"); descrip.setCharacterSize(20); descrip.setFont(fontMain);  descrip.setPosition(Vector2f(float(screenWidth / 7 * 3), 225));
+        descripv.setString("  +\n  ++\n  +++"); descripv.setCharacterSize(20); descripv.setFont(fontMain);  descripv.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
+        descripv1.setString("  +\n  ++\n  +++"); descripv1.setCharacterSize(20); descripv1.setFont(fontMain);  descripv1.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
+        descripv2.setString("  +\n  ++\n  +++"); descripv2.setCharacterSize(20); descripv2.setFont(fontMain);  descripv2.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
         //title screen buttons
         playButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Start_BTN.png"); playButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Start_BTN_on.png");
         playButton.setTexture(playButtonOffTexture); playButton.setOrigin(Vector2f(playButtonOffTexture.getSize())/2.f); playButton.setPosition(Vector2f(float(screenWidth/2), 410.f));
         exitButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Exit_BTN.png"); exitButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Exit_BTN_on.png");
-        exitButton.setTexture(exitButtonOffTexture); exitButton.setOrigin(Vector2f(exitButtonOffTexture.getSize())/2.f); exitButton.setPosition(Vector2f(float(screenWidth / 2), 650.f));
+        exitButton.setTexture(exitButtonOffTexture); exitButton.setOrigin(Vector2f(exitButtonOffTexture.getSize())/2.f); exitButton.setPosition(Vector2f(float(screenWidth / 2), 650.f));      
         //Dash
         dashRed.loadFromFile("Images/Dashred.png"); dashGreen.loadFromFile("Images/Dashgreen.png");
         dashsprite.setTexture(dashGreen); dashsprite.setOrigin(Vector2f(dashGreen.getSize()) / 2.f); dashsprite.setScale(Vector2f(1.5f, 1.5f));
@@ -823,7 +845,6 @@ public:
             window.draw(*((*manager->getExplosionList())[i]->getSprite()));
         }
         window.draw(*player.getSprite());
-
         if (player.getHp() > 10) { window.draw(hpBonusText); hpText.setString(to_string(player.getHp()-1) + "/" + to_string(player.getMaxHp())); }
         else { hpText.setString(to_string(player.getHp()) + "/" + to_string(player.getMaxHp())); }
         window.draw(hpText);
@@ -933,6 +954,8 @@ public:
         bool onStart = false; playButton.setTexture(playButtonOffTexture);
         bool onExit = false; exitButton.setTexture(exitButtonOffTexture);
         bool onVolume = false;
+        bool onLeft = false; setLeft.setTexture(setLeftOffTexture);
+        bool onRight = false; setRight.setTexture(setRightOffTexture);
         menuMusic.play();
         
         while (isMainMenu) {
@@ -969,10 +992,42 @@ public:
                         menuMusic.stop(); music.stop(); music.play();
                         isMainMenu = false;
                     }
+                    if (onLeft or onRight or onStart) {
+                        if (onLeft)
+                        {
+                            if (numberShip <= 1) { numberShip = 3; }
+                            else numberShip -= 1;
+                        }
+                        else if (onRight)
+                        {
+                            if (numberShip >= 3) { numberShip = 1; }
+                            else numberShip += 1;
+                        }
+                        switch (numberShip)
+                        {
+                        case 1:
+                            cout << "\nin\n";
+                            player.getSprite()->setTexture(playerShip);
+                            
+                            break;
+                        case 2:
+                            cout << "\nin\n";
+                            player.getSprite()->setTexture(playerShip1);
+                            break;
+                        case 3:
+                            cout << "\nin\n";
+                            player.getSprite()->setTexture(playerShip2);
+                            break;
+                        default:
+                            break;
+                        }
+                    }
+                    
                     else if (onExit) {
                         uiClicSound.play();
                         window.close(); delete manager; exit(1);
                     }
+                    
                 }
             }
             if (onVolume and Mouse::isButtonPressed(Mouse::Left)) {
@@ -985,6 +1040,43 @@ public:
             }
             window.clear();
             window.draw(background);
+            /*window.draw(cadreOn);*/
+            //gauche
+            if (setLeft.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))){
+                if (!onLeft){
+                    setLeft.setTexture(setLeftOnTexture);
+                    onLeft = true; uiSound.play();
+                }
+            }
+            else if (onLeft) {setLeft.setTexture(setLeftOffTexture); onLeft = false;}
+            window.draw(setLeft);
+            //droit
+            if (setRight.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+                if (!onRight) {
+                    setRight.setTexture(setRightOnTexture);
+                    onRight = true; uiSound.play();
+                }
+            }
+            else if (onRight) { setRight.setTexture(setRightOffTexture); onRight = false; }
+            window.draw(setRight);
+            window.draw(descrip);
+            switch (numberShip)
+            {
+            case 1 :
+            window.draw(chooseShip);
+            window.draw(descripv);
+            break;
+            case 2 :
+            window.draw(chooseShip1);
+            window.draw(descripv1);
+            break;
+            case 3 :
+            window.draw(chooseShip2);
+            window.draw(descripv2);
+            break;
+            default:
+                break;
+            }
             //start-button check
             if (playButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
                 if (!onStart) {
@@ -1059,11 +1151,13 @@ public:
     }
 };
 
-int WinMain() {
+int main() {
     Image icon; icon.loadFromFile("icon.png");
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     playerShip.loadFromFile("Images/tiny-spaceships/tiny_ship9.png");
+    playerShip1.loadFromFile("Images/tiny_ship9_AA.png");
+    playerShip2.loadFromFile("Images/tiny_ship9_Degat.png");
     basicShip.loadFromFile("Images/tiny-spaceships/tiny_ship20.png");
     specShip.loadFromFile("Images/tiny-spaceships/tiny_ship15.png");
     doubleBarrelShip.loadFromFile("Images/tiny-spaceships/tiny_ship19.png");
