@@ -80,9 +80,9 @@ void Entity::move(Vector2f value) {
 bool Entity::isColiding(Entity* other) {
     FloatRect hitbox;
     if (isPlayer) {
-        float posX = sprite.getGlobalBounds().getPosition().x + sprite.getGlobalBounds().width * 2 / 5;
-        float posY = sprite.getGlobalBounds().getPosition().y + sprite.getGlobalBounds().height / 5;
-        hitbox = FloatRect(posX, posY, sprite.getGlobalBounds().width/5, sprite.getGlobalBounds().height/2);
+        float posX = sprite.getGlobalBounds().left + sprite.getGlobalBounds().width * 2 / 5;
+        float posY = sprite.getGlobalBounds().top + sprite.getGlobalBounds().height / 5;
+        hitbox = FloatRect(posX, posY, sprite.getGlobalBounds().width / 5, sprite.getGlobalBounds().height / 2.5f);
     }
     else {
         hitbox = sprite.getGlobalBounds();
@@ -103,9 +103,10 @@ void Entity::continueAnimation() {
 }
 
 Player::Player() : Entity(playerShipYellowTexture, Vector2f(1.5f, 1.5f), 5, 350.f, Vector2f(0.f, 1.f)) {
-    sprite.setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.8f));
+    sprite.setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.75f));
     setFrameRate(0.25f);
     weaponDamage = 2;
+    isPlayer = true;
 }
 
 Enemy::Enemy(Texture _TEXTURE, Vector2f _POS, int _MAXHP, float _SPEED, int _AMMOAMOUNT, vector<Vector2f> _AMMODIRECTIONS, vector<float> _AMMOPOSITIONS) : Entity(_TEXTURE, Vector2f(1.5f, 1.5f), _MAXHP, _SPEED, Vector2f(0.f, 1.f)) {

@@ -39,6 +39,7 @@ Game::Game() {
     dashIcon.setTexture(dashIconRedTexture); dashIcon.setOrigin(Vector2f(dashIconGreenTexture.getSize()) / 2.f); dashIcon.setScale(Vector2f(1.5f, 1.5f));
     dashIcon.setPosition(Vector2f(screenWidth / 2, screenHeight - dashIcon.getGlobalBounds().height / 1.5f));
     dashArrowGreenTexture.loadFromFile("Images/dashArrowGreen.png"); dashArrowRedTexture.loadFromFile("Images/dashArrowRed.png");
+    dashArrowGreenTexture.setSmooth(true); dashArrowRedTexture.setSmooth(true);
     dashArrow.setTexture(dashArrowRedTexture); dashArrow.setScale(Vector2f(1.3f, 1.3f));
     Vector2f center = Vector2f(dashArrowGreenTexture.getSize()) / 2.f;
     dashArrow.setOrigin(center.x, center.y + 40);
@@ -116,54 +117,19 @@ Game::Game() {
     //background
     backgroundTexture.loadFromFile("Images/space_background_pack/Assets/Blue Version/layered/blue-with-stars.png");
     backgroundAlienTexture.loadFromFile("Images/pixelart_circuit_board_background2.png");
+    backgroundNautolanTexture.loadFromFile("Images/backgroundNautolan.gif");
     backgroundPlanetTexture1.loadFromFile("Images/space_background_pack/Assets/Blue Version/layered/prop-planet-big.png");
     backgroundBlackHoleTexture.loadFromFile("Images/Planets/Black_hole.png");
     backgroundAlienBaseTexture.loadFromFile("Images/techybg-fixed-and-updated-alpha.png");
     backgroundAsteroidTexture1.loadFromFile("Images/space_background_pack/Assets/Blue Version/layered/asteroid-1.png");
     backgroundAsteroidTexture2.loadFromFile("Images/space_background_pack/Assets/Blue Version/layered/asteroid-2.png");
-    background.setTexture(backgroundTexture);
-    background.setColor(Color(200, 0, 200));
-    background.setOrigin(Vector2f(backgroundTexture.getSize()) / 2.f);
-    background.setScale(Vector2f(screenWidth / backgroundTexture.getSize().x, screenWidth / backgroundTexture.getSize().x));
-    background.setPosition(Vector2f(screenWidth / 2, screenHeight / 2));
-    for (int i = 0; i < 2; i++) {
-        int type, offset = 150;
-        if (i == 0) { type = manager->PLANET1; }
-        else { type = manager->BLACK_HOLE; }
-        Vector2f randPos = Vector2f(rand() % int(screenWidth - offset*2) + offset, rand() % int(screenHeight - offset*2) + offset);
-        bool out = false;
-        while (i > 0 and !out) {
-            for (int index = 0; index < (*manager->getBackgroundPropList())[manager->PLANET]->size(); index++) {
-                SFX* other = (*(*manager->getBackgroundPropList())[manager->PLANET])[index];
-                if (abs(randPos.y - other->getPosition().y) > 100 and abs(randPos.x - other->getPosition().x) > 100) {
-                    if (index == (*manager->getBackgroundPropList())[manager->PLANET]->size() - 1) { out = true; break; }
-                    continue;
-                }
-                else { randPos = Vector2f(rand() % int(screenWidth - offset*2) + offset, rand() % int(screenHeight - offset*2) + offset); break; }
-            }
-        }
-        BackgroundProp* prop = manager->addBackgroundProp(manager->PLANET, randPos, background.getScale().x, type);
-        prop->getSprite()->setColor(background.getColor());
-    }
-    for (int i = 0; i < 4; i++) {
-        int type, offset = 175;
-        if (rand() % 2 == 0) { type = manager->ASTERO1; }
-        else { type = manager->ASTERO2; }
-        Vector2f randPos = Vector2f(rand() % int(screenWidth - offset*2) + offset, rand() % int(screenHeight - offset*2) + offset);
-        bool out = false;
-        while (i > 0 and !out) {
-            for (int index = 0; index < (*manager->getBackgroundPropList())[manager->ASTEROID]->size(); index++) {
-                SFX* other = (*(*manager->getBackgroundPropList())[manager->ASTEROID])[index];
-                if (abs(randPos.y - other->getPosition().y) > 50 and abs(randPos.x - other->getPosition().x) > 50) {
-                    if (index == (*manager->getBackgroundPropList())[manager->ASTEROID]->size() - 1) { out = true; break; }
-                    continue;
-                }
-                else { randPos = Vector2f(rand() % int(screenWidth - offset*2) + offset, rand() % int(screenHeight - offset*2) + offset); break; }
-            }
-        }
-        BackgroundProp* prop = manager->addBackgroundProp(manager->ASTEROID, randPos, background.getScale().x, type);
-        prop->getSprite()->setColor(background.getColor());
-    }
+    backgroundWaterBubbleTexture.loadFromFile("Images/water_bubble.png");
+
+    interludeStartText.setFont(fontMain); interludeStartText.setCharacterSize(35);
+    interludeStartText.setString("        STAGE CLEARED!\nmove forward to continue");
+    interludeStartText.setOrigin(Vector2f(180, 0)); interludeStartText.setPosition(Vector2f(screenWidth / 2 - interludeStartText.findCharacterPos(33).x, 60));
+    interludeStartText.setFillColor(Color(255, 255, 255, 0));
+    
     screenEffect.setFillColor(Color(255, 255, 255, 0));
     //cursor
     cursorTexture.loadFromFile("Images/CoB_cursor/Layer 1_sprite_1.png");
@@ -255,7 +221,8 @@ void Game::update() {
     if (player.getLeft() > screenWidth) { player.setX(0.f); }
     if (player.getRight() < 0) { player.setX(screenWidth); }
     if (player.getUp() < 0) { player.setY(player.getHeight() / 2.f + 0.5f); }
-    if (player.getDown() > screenHeight) { player.setY(screenHeight - player.getHeight() / 2.f - 0.5f); }
+    float bottomLimit = screenHeight - 120.f;
+    if (player.getDown() > bottomLimit) { player.setY(bottomLimit - player.getHeight() / 2.f - 0.5f); }
     player.addToHurtTime(timeSinceLastFrame.asSeconds());
     if (player.getHurtTime() >= 0.3f) { player.setColor(255, 255, 255); }
     else if (player.getHurtTime() >= 0.15f) { player.getSprite()->setColor(player.getSprite()->getColor() - Color(0,0,0, 20)); }
@@ -306,54 +273,62 @@ void Game::update() {
     meteorCooldownChrono += timeSinceLastFrame.asSeconds();
     dashCooldown += timeSinceLastFrame.asSeconds();
 
-    if (scoreNum < 1) {
-        if (enemiesSpawnCooldownNum >= 7 and manager->getEntityList()[manager->ENEMY]->size() < 10) {
+    if (scoreNum < 10) {
+        if (enemiesSpawnCooldownNum >= 7 and manager->getEntityList()[manager->ENEMY]->size() < 8) {
             for (int i = 0; i < 3; i++) {
-                int randType = rand() % 100;
-                if (randType < 65) { manager->addEnemy(manager->BASIC_SHIP); }
-                else { manager->addEnemy(manager->SPEC_SHIP); }
+                if (manager->getEntityList()[manager->ENEMY]->size() < 8) {
+                    int randType = rand() % 100;
+                    if (randType < 65) { manager->addEnemy(manager->BASIC_SHIP); }
+                    else { manager->addEnemy(manager->SPEC_SHIP); }
+                }
             }
             enemiesSpawnCooldownNum = 0;
         }
     }
-    else if (scoreNum < 2) {
-        if (enemiesSpawnCooldownNum >= 6 and manager->getEntityList()[manager->ENEMY]->size() < 15) {
+    else if (scoreNum < 20) {
+        if (enemiesSpawnCooldownNum >= 6 and manager->getEntityList()[manager->ENEMY]->size() < 10) {
             for (int i = 0; i < 4; i++) {
-                int randType = rand() % 100;
-                if (randType < 40) { manager->addEnemy(manager->BASIC_SHIP); }
-                else if (randType < 70) { manager->addEnemy(manager->SPEC_SHIP); }
-                else { manager->addEnemy(manager->DOUBLE_BARREL_SHIP); }
+                if (manager->getEntityList()[manager->ENEMY]->size() < 10) {
+                    int randType = rand() % 100;
+                    if (randType < 40) { manager->addEnemy(manager->BASIC_SHIP); }
+                    else if (randType < 70) { manager->addEnemy(manager->SPEC_SHIP); }
+                    else { manager->addEnemy(manager->DOUBLE_BARREL_SHIP); }
+                }
             }
             enemiesSpawnCooldownNum = 0;
         }
     }
     else if (waveCount == 3) {
         if (isBossAlive()) {
-            if (enemiesSpawnCooldownNum >= 6 and manager->getEntityList()[manager->ENEMY]->size() < 8) {
+            if (enemiesSpawnCooldownNum >= 6 and manager->getEntityList()[manager->ENEMY]->size() < 6) {
                 for (int i = 0; i < 2; i++) {
-                    manager->addEnemy(manager->DOUBLE_BARREL_SHIP);
+                    if (manager->getEntityList()[manager->ENEMY]->size() < 6) {
+                        manager->addEnemy(manager->DOUBLE_BARREL_SHIP);
+                    }
                 }
                 enemiesSpawnCooldownNum = 0;
             }
         }
-        else {
+        else if (manager->getEntityList()[manager->ENEMY]->size() == 0) {
             if (!isInterlude) {
+                interludeStartText.setFillColor(Color(255, 255, 255, 200));
                 if (player.getPos().y < 100) {
                     isInterlude = true;
                     player.setSpeed(player.getSpeed() * 1.25f);
                     meteorSpeed = 2.5f;
                     interludeChrono = 0;
+                    interludeStartText.setFillColor(Color(255, 255, 255, 0));
                 }
             }
             else {
                 interludeChrono += timeSinceLastFrame.asSeconds();
-                if (interludeChrono > 2.f) { meteorProb = 70; }
+                if (interludeChrono > 2.f) { meteorProb = 80; }
                 if (interludeChrono > 15.f) {
                     meteorProb = 0;
                     shade += 100.f * timeSinceLastFrame.asSeconds();
                     screenEffect.setFillColor(Color(255, 255, 255, int(shade)));
                     if (int(shade) == 255) {
-                        player.getSprite()->setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.8f));
+                        player.getSprite()->setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.75f));
                         background.setTexture(backgroundAlienTexture);
                         background.setColor(Color(100, 255, 150));
                         background.setOrigin(Vector2f(backgroundAlienTexture.getSize()) / 2.f);
@@ -393,15 +368,137 @@ void Game::update() {
         else {
             shade = 0;
             meteorProb = 10;
-            if (enemiesSpawnCooldownNum >= 8 and manager->getEntityList()[manager->ENEMY]->size() < 6) {
-                for (int i = 0; i < 2; i++) {
+            if (enemiesSpawnCooldownNum >= 2 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
+                for (int i = 0; i < 6; i++) {
                     manager->addEnemy(manager->ALIEN_SHIP);
                 }
                 enemiesSpawnCooldownNum = 0;
             }
         }
     }
-    else if (waveCount == 5) {
+    if (waveCount == 5) {
+        if (enemiesSpawnCooldownNum >= 5 and manager->getEntityList()[manager->ENEMY]->size() < 8) {
+            for (int i = 0; i < 2; i++) {
+                if (manager->getEntityList()[manager->ENEMY]->size() < 8) {
+                    int randType = rand() % 100;
+                    if (randType < 65) { manager->addEnemy(manager->ALIEN_SHIP); }
+                    else { manager->addEnemy(manager->SPEC_SHIP); }
+                }
+            }
+            enemiesSpawnCooldownNum = 0;
+        }
+    }
+    if (waveCount == 6) {
+        if (isBossAlive()) {
+            if (enemiesSpawnCooldownNum >= 4 and manager->getEntityList()[manager->ENEMY]->size() < 5) {
+                for (int i = 0; i < 1; i++) {
+                    if (manager->getEntityList()[manager->ENEMY]->size() < 5) {
+                        int randType = rand() % 100;
+                        if (randType < 65) { manager->addEnemy(manager->ALIEN_SHIP); }
+                        else { manager->addEnemy(manager->SPEC_SHIP); }
+                    }
+                }
+                enemiesSpawnCooldownNum = 0;
+            }
+        }
+        else if (manager->getEntityList()[manager->ENEMY]->size() == 0) {
+            if (!isInterlude) {
+                interludeStartText.setFillColor(Color(255, 255, 255, 200));
+                if (player.getPos().y < 100) {
+                    isInterlude = true;
+                    player.setSpeed(player.getSpeed() * 1.25f);
+                    meteorSpeed = 2.5f;
+                    interludeChrono = 0;
+                    interludeStartText.setFillColor(Color(255, 255, 255, 0));
+                }
+            }
+            else {
+                interludeChrono += timeSinceLastFrame.asSeconds();
+                if (interludeChrono > 2.f) { meteorProb = 80; }
+                if (interludeChrono > 15.f) {
+                    meteorProb = 0;
+                    shade += 100.f * timeSinceLastFrame.asSeconds();
+                    screenEffect.setFillColor(Color(255, 255, 255, int(shade)));
+                    if (int(shade) == 255) {
+                        player.getSprite()->setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.75f));
+                        background.setTexture(backgroundNautolanTexture);
+                        background.setTextureRect(IntRect(0,0, backgroundNautolanTexture.getSize().x, backgroundNautolanTexture.getSize().y));
+                        background.setColor(Color(170, 170, 170));
+                        background.setOrigin(Vector2f(backgroundNautolanTexture.getSize()) / 2.f);
+                        background.setScale(Vector2f(screenWidth / float(backgroundNautolanTexture.getSize().x), screenWidth / float(backgroundNautolanTexture.getSize().x)));
+                        background.setPosition(Vector2f(screenWidth / 2, screenHeight / 2));
+                        for (SFX* planet : *(*manager->getBackgroundPropList())[manager->PLANET]) {
+                            delete planet;
+                        }
+                        (*manager->getBackgroundPropList())[manager->PLANET]->clear();
+                        for (SFX* astero : *(*manager->getBackgroundPropList())[manager->ASTEROID]) {
+                            delete astero;
+                        }
+                        (*manager->getBackgroundPropList())[manager->ASTEROID]->clear();
+                        waveCount = 7;
+                    }
+                }
+            }
+        }
+    }
+    else if (waveCount == 7) {
+        if (isInterlude) {
+            for (int i = 0; i < 4; i++) {
+                int type, offset = 175;
+                if (rand() % 2 == 0) { type = manager->ASTERO1; }
+                else { type = manager->ASTERO2; }
+                Vector2f randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset);
+                bool out = false;
+                while (i > 0 and !out) {
+                    for (int index = 0; index < (*manager->getBackgroundPropList())[manager->PLANET]->size(); index++) {
+                        SFX* other = (*(*manager->getBackgroundPropList())[manager->PLANET])[index];
+                        if (abs(randPos.y - other->getPosition().y) > 50 and abs(randPos.x - other->getPosition().x) > 50) {
+                            if (index == (*manager->getBackgroundPropList())[manager->PLANET]->size() - 1) { out = true; break; }
+                            continue;
+                        }
+                        else { randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset); break; }
+                    }
+                }
+                BackgroundProp* prop = manager->addBackgroundProp(manager->PLANET, randPos, 5.f, type);
+                prop->getSprite()->setColor(Color(10, 130, 90));
+            }
+            for (int i = 0; i < 50; i++) {
+                int offset = 20;
+                Vector2f randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset);
+                bool out = false;
+                while (i > 0 and !out) {
+                    for (int index = 0; index < (*manager->getBackgroundPropList())[manager->ASTEROID]->size(); index++) {
+                        SFX* other = (*(*manager->getBackgroundPropList())[manager->ASTEROID])[index];
+                        if (abs(randPos.y - other->getPosition().y) > 10 and abs(randPos.x - other->getPosition().x) > 10) {
+                            if (index == (*manager->getBackgroundPropList())[manager->ASTEROID]->size() - 1) { out = true; break; }
+                            continue;
+                        }
+                        else { randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset); break; }
+                    }
+                }
+                BackgroundProp* prop = manager->addBackgroundProp(manager->ASTEROID, randPos, 0.4f, manager->WATER_BUBBLE);
+            }
+            player.setSpeed(player.getSpeed() / 1.25f);
+            meteorSpeed = 1.f;
+            obstacleTexture = alienDebrisTexture;
+            isInterlude = false;
+        }
+        if (int(shade) > 0) {
+            shade -= 100.f * timeSinceLastFrame.asSeconds();
+            screenEffect.setFillColor(Color(255, 255, 255, int(shade)));
+        }
+        else {
+            shade = 0;
+            meteorProb = 10;
+            if (enemiesSpawnCooldownNum >= 2 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
+                for (int i = 0; i < 2; i++) {
+                    manager->addEnemy(manager->NAUTOLAN_SHIP);
+                }
+                enemiesSpawnCooldownNum = 0;
+            }
+        }
+    }
+    else if (waveCount == 9) {
         if (enemiesSpawnCooldownNum >= 5 and manager->getEntityList()[manager->ENEMY]->size() < 10) {
             for (int i = 0; i < 3; i++) {
                 int randType = rand() % 100;
@@ -516,65 +613,74 @@ void Game::update() {
             ammo->continueAnimation();
         }
         if (ammo->getDown() < 0 or ammo->getUp() > screenHeight) { manager->deleteEntity(manager->EFFECT, ammo); }
-        if (ammo->getBehavior().y < 0.f) {
-            for (int j = 0; j < manager->getEntityList()[manager->ENEMY]->size(); j++) {
-                Entity* currentEntity = (*manager->getEntityList()[manager->ENEMY])[j];
-                if (ammo->isColiding(currentEntity)) {
-                    cout << "\n\033[32menemy hit!\033[0m\n";
-                    currentEntity->decreaseHp(ammo->getMaxHp());
-                    manager->deleteEntity(manager->EFFECT, ammo);
-                    currentEntity->setHurtTime(0);
-                    currentEntity->setColor(255, 100, 100);
-                    cout << "remaining hp : " << currentEntity->getHp() << endl;
-                    if (currentEntity->getHp() <= 0) {
-                        int randIsBonus = rand() % 100;
-                        if (randIsBonus < 100) {
-                            int randType = rand() % 100;
-                            int type = 0;
-                            float healProb = 60, rifleProb = 20, sniperProb = 20;
-                            if (randType < healProb) { type = manager->HEALING; }
-                            else if (randType < healProb + rifleProb) { type = manager->RIFLE; }
-                            else if (randType < healProb + rifleProb + sniperProb) { type = manager->SNIPER; }
-                            manager->addBonus(currentEntity->getPos(), type);
-                        }
-                        manager->addExplosion(currentEntity->getPos(), currentEntity->getHeight() * 0.015);
-                        explosionSound.play();
-                        manager->deleteEntity(manager->ENEMY, currentEntity);
-                        scoreNum++;
-                        if (scoreNum == 1) { waveCount = 2; }
-                        if (scoreNum == 2) {
-                            manager->addEnemy(manager->BOSS_CRUISER);
-                            for (int i = 0; i < 2; i++) {
-                                manager->addEnemy(manager->DOUBLE_BARREL_SHIP);
+        else {
+            if (ammo->getBehavior().y < 0.f) {
+                for (int j = 0; j < manager->getEntityList()[manager->ENEMY]->size(); j++) {
+                    Entity* currentEntity = (*manager->getEntityList()[manager->ENEMY])[j];
+                    if (ammo->isColiding(currentEntity)) {
+                        cout << "\n\033[32menemy hit!\033[0m\n";
+                        currentEntity->decreaseHp(ammo->getMaxHp());
+                        manager->deleteEntity(manager->EFFECT, ammo);
+                        currentEntity->setHurtTime(0);
+                        currentEntity->setColor(255, 100, 100);
+                        cout << "remaining hp : " << currentEntity->getHp() << endl;
+                        if (currentEntity->getHp() <= 0) {
+                            int randIsBonus = rand() % 100;
+                            if (randIsBonus < 100) {
+                                int randType = rand() % 100;
+                                int type = 0;
+                                float healProb = 50, rifleProb = 50.f / 3.f, sniperProb = 50.f / 3.f, pistolProb = 50.f / 3.f;
+                                if (randType < healProb) { type = manager->HEALING; }
+                                else if (randType < healProb + rifleProb) { type = manager->RIFLE; }
+                                else if (randType < healProb + rifleProb + sniperProb) { type = manager->SNIPER; }
+                                else { type = manager->PISTOL; }
+                                manager->addBonus(currentEntity->getPos(), type);
                             }
-                            waveCount = 3;
-                        }
-                        /*if (waveCount == 3 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
-                            manager->addEnemy(manager->BOSS_ALIEN_SHIP);
-                            for (int i = 0; i < 2; i++) {
-                                manager->addEnemy(manager->ALIEN_SHIP);
+                            manager->addExplosion(currentEntity->getPos(), currentEntity->getHeight() * 0.015);
+                            explosionSound.play();
+                            manager->deleteEntity(manager->ENEMY, currentEntity);
+                            scoreNum++;
+                            if (scoreNum == 10) { waveCount = 2; }
+                            if (scoreNum == 20) {
+                                manager->addEnemy(manager->BOSS_CRUISER);
+                                for (int i = 0; i < 2; i++) {
+                                    manager->addEnemy(manager->DOUBLE_BARREL_SHIP);
+                                }
+                                waveCount = 3;
                             }
-                            waveCount = 4;
-                        }*/
-                        if (waveCount == 6 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
-                            manager->addEnemy(manager->BOSS_NAUTOLAN_SHIP);
-                            for (int i = 0; i < 2; i++) {
-                                manager->addEnemy(manager->NAUTOLAN_SHIP);
+                            if (waveCount == 4 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
+                                for (int i = 0; i < 2; i++) {
+                                    manager->addEnemy(manager->ALIEN_SHIP);
+                                }
+                                waveCount = 5;
                             }
-                            waveCount = 7;
+                            if (waveCount == 5 and scoreNum == 60) {
+                                manager->addEnemy(manager->BOSS_ALIEN_SHIP);
+                                for (int i = 0; i < 2; i++) {
+                                    manager->addEnemy(manager->ALIEN_SHIP);
+                                }
+                                waveCount = 6;
+                            }
+                            if (waveCount == 8 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
+                                manager->addEnemy(manager->BOSS_NAUTOLAN_SHIP);
+                                for (int i = 0; i < 2; i++) {
+                                    manager->addEnemy(manager->NAUTOLAN_SHIP);
+                                }
+                                waveCount = 9;
+                            }
+                            score.setString("SCORE : " + to_string(scoreNum) + "\n wave " + to_string(waveCount));
                         }
-                        score.setString("SCORE : " + to_string(scoreNum) + "\n wave " + to_string(waveCount));
                     }
                 }
             }
-        }
-        else {
-            if (player.isColiding(ammo)) {
-                cout << "\n\033[32player hit!\033[0m\n";
-                player.decreaseHp(ammo->getMaxHp());
-                manager->deleteEntity(manager->EFFECT, ammo);
-                player.setHurtTime(0);
-                player.setColor(255, 100, 100);
+            else {
+                if (player.isColiding(ammo)) {
+                    cout << "\n\033[32player hit!\033[0m\n";
+                    player.decreaseHp(ammo->getMaxHp());
+                    manager->deleteEntity(manager->EFFECT, ammo);
+                    player.setHurtTime(0);
+                    player.setColor(255, 100, 100);
+                }
             }
         }
     }
@@ -583,23 +689,32 @@ void Game::update() {
         bonus->move(Vector2f(0, 1) * timeSinceLastFrame.asSeconds());
         bonus->addToFrameRate(timeSinceLastFrame.asSeconds());
         bonus->addToLifeTime(timeSinceLastFrame.asSeconds());
-        if (bonus->getType() == manager->HEALING and player.getHp() <= player.getMaxHp() and player.isColiding(bonus)) {
-            manager->deleteEntity(manager->BONUS, bonus);
-            player.decreaseHp(-1);
-        }
-        else if (bonus->getType() == manager->RIFLE and player.isColiding(bonus)) {
-            manager->deleteEntity(manager->BONUS, bonus);
-            player.setFrameRate(0.15f);
-            playerAmmoColor = Color(255, 255, 10);
-            player.setAmmoDirections({ Vector2f(0, -1) });
-            player.setWeaponDamage(1);
-        }
-        else if (bonus->getType() == manager->SNIPER and player.isColiding(bonus)) {
-            manager->deleteEntity(manager->BONUS, bonus);
-            player.setFrameRate(0.6f);
-            playerAmmoColor = Color(255, 50, 255);
-            player.setAmmoDirections({ Vector2f(0, -2) });
-            player.setWeaponDamage(5);
+        if (bonus->isColiding(&player)) {
+            if (bonus->getType() == manager->HEALING and player.getHp() <= player.getMaxHp()) {
+                manager->deleteEntity(manager->BONUS, bonus);
+                player.decreaseHp(-1);
+            }
+            else if (bonus->getType() == manager->RIFLE) {
+                manager->deleteEntity(manager->BONUS, bonus);
+                player.setFrameRate(0.15f);
+                playerAmmoColor = Color(255, 255, 10);
+                player.setAmmoDirections({ Vector2f(0, -1) });
+                player.setWeaponDamage(100);
+            }
+            else if (bonus->getType() == manager->SNIPER) {
+                manager->deleteEntity(manager->BONUS, bonus);
+                player.setFrameRate(0.6f);
+                playerAmmoColor = Color(255, 50, 255);
+                player.setAmmoDirections({ Vector2f(0, -2) });
+                player.setWeaponDamage(5);
+            }
+            else if (bonus->getType() == manager->PISTOL) {
+                manager->deleteEntity(manager->BONUS, bonus);
+                player.setFrameRate(0.25f);
+                playerAmmoColor = Color(255, 255, 255);
+                player.setAmmoDirections({ Vector2f(0, -1) });
+                player.setWeaponDamage(2);
+            }
         }
         else if (bonus->getLifeTime() > 4.5f) {
             manager->deleteEntity(manager->BONUS, bonus);
@@ -720,6 +835,7 @@ void Game::display() {
     for (SFX* astero : *(*manager->getBackgroundPropList())[manager->ASTEROID]) {
         window.draw(*astero->getSprite());
     }
+    window.draw(interludeStartText);
     for (Entity* bonus : *(manager->getEntityList()[manager->BONUS])) {
         window.draw(*bonus->getSprite());
     }
@@ -759,10 +875,10 @@ void Game::display() {
     for (int i = 0; i < (*manager->getExplosionList()).size(); i++) {
         window.draw(*((*manager->getExplosionList())[i]->getSprite()));
     }
+    window.draw(*player.getSprite());
     for (Entity* ammo : *(manager->getEntityList()[manager->EFFECT])) {
         window.draw(*ammo->getSprite());
     }
-    window.draw(*player.getSprite());
     window.draw(bossText);
     window.draw(bossHpTable);
     window.draw(bossHpBar);
@@ -912,6 +1028,13 @@ void Game::mainMenu() {
     Vector2f buttonAmplification = Vector2f(0.05, 0.05);
     Sprite menuAdminButton = adminButton;
     menuAdminButton.setPosition(playButton.getPosition().x - playButton.getGlobalBounds().width/2 - 50, playButton.getPosition().y);
+    background.setTexture(backgroundTexture);
+    background.setColor(Color(200, 0, 200));
+    background.setOrigin(Vector2f(backgroundTexture.getSize()) / 2.f);
+    background.setScale(Vector2f(screenWidth / backgroundTexture.getSize().x, screenWidth / backgroundTexture.getSize().x));
+    background.setPosition(Vector2f(screenWidth / 2, screenHeight / 2));
+    obstacleTexture = meteorTexture;
+    playerAmmoColor = Color(255, 255, 255);
 
     while (isMainMenu) {
         Event event;
@@ -941,6 +1064,53 @@ void Game::mainMenu() {
                         manager->getExplosionList()->erase(pos);
                     }
                     menuMusic.stop(); music.stop(); music.play();
+
+                    for (SFX* planet : *(*manager->getBackgroundPropList())[manager->PLANET]) {
+                        delete planet;
+                    }
+                    (*manager->getBackgroundPropList())[manager->PLANET]->clear();
+                    for (SFX* astero : *(*manager->getBackgroundPropList())[manager->ASTEROID]) {
+                        delete astero;
+                    }
+                    (*manager->getBackgroundPropList())[manager->ASTEROID]->clear();
+                    for (int i = 0; i < 2; i++) {
+                        int type, offset = 150;
+                        if (i == 0) { type = manager->PLANET1; }
+                        else { type = manager->BLACK_HOLE; }
+                        Vector2f randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset);
+                        bool out = false;
+                        while (i > 0 and !out) {
+                            for (int index = 0; index < (*manager->getBackgroundPropList())[manager->PLANET]->size(); index++) {
+                                SFX* other = (*(*manager->getBackgroundPropList())[manager->PLANET])[index];
+                                if (abs(randPos.y - other->getPosition().y) > 100 and abs(randPos.x - other->getPosition().x) > 100) {
+                                    if (index == (*manager->getBackgroundPropList())[manager->PLANET]->size() - 1) { out = true; break; }
+                                    continue;
+                                }
+                                else { randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset); break; }
+                            }
+                        }
+                        BackgroundProp* prop = manager->addBackgroundProp(manager->PLANET, randPos, background.getScale().x, type);
+                        prop->getSprite()->setColor(background.getColor());
+                    }
+                    for (int i = 0; i < 4; i++) {
+                        int type, offset = 175;
+                        if (rand() % 2 == 0) { type = manager->ASTERO1; }
+                        else { type = manager->ASTERO2; }
+                        Vector2f randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset);
+                        bool out = false;
+                        while (i > 0 and !out) {
+                            for (int index = 0; index < (*manager->getBackgroundPropList())[manager->ASTEROID]->size(); index++) {
+                                SFX* other = (*(*manager->getBackgroundPropList())[manager->ASTEROID])[index];
+                                if (abs(randPos.y - other->getPosition().y) > 50 and abs(randPos.x - other->getPosition().x) > 50) {
+                                    if (index == (*manager->getBackgroundPropList())[manager->ASTEROID]->size() - 1) { out = true; break; }
+                                    continue;
+                                }
+                                else { randPos = Vector2f(rand() % int(screenWidth - offset * 2) + offset, rand() % int(screenHeight - offset * 2) + offset); break; }
+                            }
+                        }
+                        BackgroundProp* prop = manager->addBackgroundProp(manager->ASTEROID, randPos, background.getScale().x, type);
+                        prop->getSprite()->setColor(background.getColor());
+                    }
                     isMainMenu = false;
                 }
                 if (onLeft or onRight or onStart) {

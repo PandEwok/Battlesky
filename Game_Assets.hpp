@@ -28,6 +28,7 @@ private:
     bool isMainMenu = true; //menus
     bool isPauseMenu = false;
     bool isInterlude = false;
+    Text interludeStartText;
     Font fontMain; //fonts
     Font fontTitle;
     Text title; //main menu's title
@@ -60,6 +61,7 @@ private:
     Sprite cursor;
     Texture backgroundTexture; //background
     Texture backgroundAlienTexture;
+    Texture backgroundNautolanTexture;
     Sprite background;
     Texture obstacleTexture = meteorTexture;
     Player player; //player

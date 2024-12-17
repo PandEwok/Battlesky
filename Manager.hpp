@@ -42,7 +42,8 @@ public:
     enum BonusEnum {
         HEALING = 1,
         RIFLE = 2,
-        SNIPER = 3
+        SNIPER = 3,
+        PISTOL = 4
     };
     enum PropEnum {
         ASTEROID = 0,
@@ -51,7 +52,8 @@ public:
         ASTERO2 = 3,
         PLANET1 = 4,
         BLACK_HOLE = 5,
-        ALIENBASE = 6
+        ALIENBASE = 6,
+        WATER_BUBBLE = 7
     };
     static ObjectManager* getInstance();
 

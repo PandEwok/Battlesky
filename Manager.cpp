@@ -103,6 +103,9 @@ ObjectManager* ObjectManager::getInstance() {
         else if (type == SNIPER) {
             bonus = new Bonus(bonusSniperTexture, pos, SNIPER);
         }
+        else if (type == PISTOL) {
+            bonus = new Bonus(bonusPistolTexture, pos, PISTOL);
+        }
         else {
             bonus = new Bonus(bonusHealTexture, pos, HEALING);
         }
@@ -142,8 +145,18 @@ ObjectManager* ObjectManager::getInstance() {
                 backgroundPlanetList.push_back(prop);
                 return prop;
             }
-            else {
+            else if (asteroType == ALIENBASE) {
                 BackgroundProp* prop = new BackgroundProp(&backgroundAlienBaseTexture, pos, scale, asteroType);
+                backgroundPlanetList.push_back(prop);
+                return prop;
+            }
+            else if (asteroType == ASTERO1) {
+                BackgroundProp* prop = new BackgroundProp(&backgroundAsteroidTexture1, pos, scale, asteroType);
+                backgroundPlanetList.push_back(prop);
+                return prop;
+            }
+            else {
+                BackgroundProp* prop = new BackgroundProp(&backgroundAsteroidTexture2, pos, scale, asteroType);
                 backgroundPlanetList.push_back(prop);
                 return prop;
             }
@@ -154,8 +167,13 @@ ObjectManager* ObjectManager::getInstance() {
                 backgroundAsteroidList.push_back(prop);
                 return prop;
             }
-            else {
+            else if (asteroType == ASTERO2) {
                 BackgroundProp* prop = new BackgroundProp(&backgroundAsteroidTexture2, pos, scale, asteroType);
+                backgroundAsteroidList.push_back(prop);
+                return prop;
+            }
+            else {
+                BackgroundProp* prop = new BackgroundProp(&backgroundWaterBubbleTexture, pos, scale, asteroType);
                 backgroundAsteroidList.push_back(prop);
                 return prop;
             }
