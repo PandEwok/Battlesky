@@ -6,8 +6,6 @@
 using namespace sf;
 using namespace std;
 
-
-
 class Game {
 private:
     Clock gameTime;
@@ -53,7 +51,7 @@ private:
     Texture pauseExitButtonOffTexture; Texture pauseExitButtonOnTexture; Sprite pauseExitButton; Text pauseExitText;
     Texture adminButtonOffTexture; Texture adminButtonOnTexture; Sprite adminButton; Text adminText;
     Text hpText; Text hpBonusText; //hp display
-    Texture hpBarTexture;
+    Texture hpBarTexture5; Texture hpBarTexture10;
     Sprite hpBar;
     Texture hpDotTexture;
     Sprite hpDot;

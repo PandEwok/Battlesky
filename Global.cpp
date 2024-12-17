@@ -17,7 +17,7 @@ Texture alienShip;
 Texture bossAlienShip;
 Texture nautolanShip;
 Texture bossNautolanShip;
-Texture ammoTexture;
+Texture ammoTexture; 
 Texture rayTexture;
 Texture spinningAmmoTexture;
 Texture bonusHealTexture;

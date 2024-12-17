@@ -21,7 +21,7 @@ protected:
     vector<Vector2f> ammoDirections = { Vector2f(0, -1) };
     vector<float> ammoPositions = {};
     vector<Entity*> linkedEntities = {};
-    bool isBoss = false;
+    bool isBoss = false, isPlayer = false;
 public:
     Entity(Texture _TEXTURE = basicShip, Vector2f _SCALE = Vector2f(1.5f, 1.5f), int _MAXHP = 10, float _SPEED = 100.f, Vector2f _BEHAVIOR = Vector2f(0.f, 1.f));
 
@@ -52,6 +52,7 @@ public:
 
     int getHp();
     int getMaxHp();
+    void setMaxHp(int value);
     void decreaseHp(int value = 1);
     int getWeaponDamage();
     void setWeaponDamage(int value);

@@ -61,19 +61,19 @@ Game::Game() {
         //class choice
     arrowButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs/Backward_BTN.png"); arrowButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs_Active/Backward_BTN.png");
     arrowButtonOffTexture.setSmooth(true); arrowButtonOnTexture.setSmooth(true);
-            //left arrow
+        //left arrow
     arrowButtonLeft.setTexture(arrowButtonOffTexture); arrowButtonLeft.setOrigin(Vector2f(arrowButtonOffTexture.getSize()) / 2.f);
     arrowButtonLeft.setPosition(Vector2f(float(screenWidth / 10), 270.f)); arrowButtonLeft.setScale(0.5, 0.5);
-            //right arrow
+        //right arrow
     arrowButtonRight.setTexture(arrowButtonOffTexture); arrowButtonRight.setOrigin(Vector2f(arrowButtonOffTexture.getSize()) / 2.f);
     arrowButtonRight.setPosition(Vector2f(float(screenWidth / 10 * 9), 270.f)); arrowButtonRight.setScale(0.5, 0.5); arrowButtonRight.rotate(180.f);
-            //ship class icon
+         //ship class icon
     currentPlayerIcon.setTexture(playerShipYellowTexture); currentPlayerIcon.setOrigin(Vector2f(playerShipYellowTexture.getSize()) / 2.f);
     currentPlayerIcon.setPosition(Vector2f(float(screenWidth / 6 * 2), 265.f)); currentPlayerIcon.setScale(2.5, 2.5);
     classDescription.setString("Life\nDamage\nAttack Speed"); classDescription.setCharacterSize(20); classDescription.setFont(fontMain);  classDescription.setPosition(Vector2f(float(screenWidth / 7 * 3), 225));
-    classDescriptionStats1.setString("  +\n  ++\n  +++"); classDescriptionStats1.setCharacterSize(20); classDescriptionStats1.setFont(fontMain);  classDescriptionStats1.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
-    classDescriptionStats2.setString("  +\n  ++\n  +++"); classDescriptionStats2.setCharacterSize(20); classDescriptionStats2.setFont(fontMain);  classDescriptionStats2.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
-    classDescriptionStats3.setString("  +\n  ++\n  +++"); classDescriptionStats3.setCharacterSize(20); classDescriptionStats3.setFont(fontMain);  classDescriptionStats3.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
+    classDescriptionStats1.setString("  ++\n  ++++\n  ++"); classDescriptionStats1.setCharacterSize(20); classDescriptionStats1.setFont(fontMain);  classDescriptionStats1.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
+    classDescriptionStats2.setString("  ++++\n  ++\n  ++"); classDescriptionStats2.setCharacterSize(20); classDescriptionStats2.setFont(fontMain);  classDescriptionStats2.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
+    classDescriptionStats3.setString("  ++\n  ++\n  ++++"); classDescriptionStats3.setCharacterSize(20); classDescriptionStats3.setFont(fontMain);  classDescriptionStats3.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
     //pause menu
     float pauseMenuOffset = 150.f;
     pauseHeaderTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Pause/Header.png");
@@ -100,8 +100,11 @@ Game::Game() {
     adminText.setString("ADMIN\nPROTECTION"); adminText.setFont(fontMain); adminText.setCharacterSize(40); adminText.setOrigin(Vector2f(0.f, 60.f)); adminText.setPosition(adminButton.getPosition() + Vector2f(60.f, 0.f));
     //health and death
     hpText.setFont(fontMain); hpText.setCharacterSize(30); hpText.setPosition(Vector2f(20.f, float(screenHeight - 50))); hpText.setFillColor(Color(157, 217, 146));
-    hpBarTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_UI/Health_Bar_Table.png");
-    hpBar.setTexture(hpBarTexture); hpBar.setColor(Color(255,255,255, 220)); hpBar.setPosition(hpText.getPosition() + Vector2f(100.f, 0.f)); hpBar.setScale(Vector2f(0.5f, 0.5f));
+    hpBarTexture10.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_UI/Health_Bar_Table_10.png");
+    hpBarTexture5.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_UI/Health_Bar_Table_5.png");
+    hpBar.setTexture(hpBarTexture10); hpBar.setColor(Color(255,255,255, 220)); hpBar.setPosition(hpText.getPosition() + Vector2f(100.f, 0.f)); hpBar.setScale(Vector2f(0.5f, 0.5f));
+
+
     hpDotTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_UI/Health_Dot.png");
     hpDot.setTexture(hpDotTexture); hpDot.setColor(Color(255,255,255, 220)); hpDot.setScale(Vector2f(0.5f, 0.5f));
     hpBonusText.setFont(fontMain); hpBonusText.setCharacterSize(25); hpBonusText.setPosition(hpText.getPosition() - Vector2f(-10.f, 20.f));
@@ -200,7 +203,7 @@ void Game::userInput() {
     if (dashCooldown > 3) {
         dashIcon.setTexture(dashIconGreenTexture);
         dashArrow.setTexture(dashArrowGreenTexture);
-        if (Keyboard::isKeyPressed(Keyboard::R)) {
+        if (Keyboard::isKeyPressed(Keyboard::LShift)) {
             dashCooldown = 0;
             dashIcon.setTexture(dashIconRedTexture);
             dashArrow.setTexture(dashArrowRedTexture);
@@ -566,7 +569,7 @@ void Game::update() {
             }
         }
         else {
-            if (ammo->isColiding(&player)) {
+            if (player.isColiding(ammo)) {
                 cout << "\n\033[32player hit!\033[0m\n";
                 player.decreaseHp(ammo->getMaxHp());
                 manager->deleteEntity(manager->EFFECT, ammo);
@@ -764,14 +767,16 @@ void Game::display() {
     window.draw(bossHpTable);
     window.draw(bossHpBar);
 
-    if (player.getHp() > 10) { window.draw(hpBonusText); hpText.setString(to_string(player.getHp() - 1) + "/" + to_string(player.getMaxHp())); }
+    if (player.getHp() > player.getMaxHp()) { window.draw(hpBonusText); hpText.setString(to_string(player.getHp() - 1) + "/" + to_string(player.getMaxHp())); }
     else { hpText.setString(to_string(player.getHp()) + "/" + to_string(player.getMaxHp())); }
     window.draw(hpText);
+
+
     window.draw(hpBar);
     for (int i = 0; i < player.getHp(); i++) {
         Sprite heart = hpDot;
         heart.setPosition(hpBar.getPosition() + Vector2f(4.0f, 3.f) + float(i) * Vector2f(15.0f, 0.f));
-        if (i >= 10) { heart.setColor(Color(50, 150, 255)); }
+        if (i >= player.getMaxHp()) { heart.setColor(Color(50, 150, 255)); }
         window.draw(heart);
     }
     window.draw(dashIcon);
@@ -953,10 +958,20 @@ void Game::mainMenu() {
                     switch (shipNumber)
                     {
                     case 1:
+                        player.setWeaponDamage(4);
+                        player.setMaxHp(5); 
+                        hpBar.setTexture(hpBarTexture5);
                         break;
                     case 2:
+                        player.setWeaponDamage(2);
+                        player.setMaxHp(10);
+                        hpBar.setTexture(hpBarTexture10);
                         break;
                     case 3:
+                        player.setWeaponDamage(2);
+                        player.setMaxHp(5);
+                        hpBar.setTexture(hpBarTexture5);
+                        player.setFrameRate(0.2f);
                         break;
                     default:
                         break;

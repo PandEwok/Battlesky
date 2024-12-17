@@ -38,6 +38,10 @@ void Entity::setY(float y) { sprite.setPosition(Vector2f(sprite.getPosition().x,
 
 int Entity::getHp() { return hp; }
 int Entity::getMaxHp() { return maxHp; }
+void Entity::setMaxHp(int value) {
+    maxHp = value;
+    hp = value;
+}
 void Entity::decreaseHp(int value) {
     hp -= value;
 }
@@ -74,7 +78,16 @@ void Entity::move(Vector2f value) {
 }
 
 bool Entity::isColiding(Entity* other) {
-    if (sprite.getGlobalBounds().intersects(other->getSprite()->getGlobalBounds())) { return true; }
+    FloatRect hitbox;
+    if (isPlayer) {
+        float posX = sprite.getGlobalBounds().getPosition().x + sprite.getGlobalBounds().width * 2 / 5;
+        float posY = sprite.getGlobalBounds().getPosition().y + sprite.getGlobalBounds().height / 5;
+        hitbox = FloatRect(posX, posY, sprite.getGlobalBounds().width/5, sprite.getGlobalBounds().height/2);
+    }
+    else {
+        hitbox = sprite.getGlobalBounds();
+    }
+    if (hitbox.intersects(other->getSprite()->getGlobalBounds())) { return true; }
     return false;
 }
 
@@ -89,7 +102,7 @@ void Entity::continueAnimation() {
     }
 }
 
-Player::Player() : Entity(playerShipYellowTexture, Vector2f(1.5f, 1.5f), 10, 350.f, Vector2f(0.f, 1.f)) {
+Player::Player() : Entity(playerShipYellowTexture, Vector2f(1.5f, 1.5f), 5, 350.f, Vector2f(0.f, 1.f)) {
     sprite.setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.8f));
     setFrameRate(0.25f);
     weaponDamage = 2;
