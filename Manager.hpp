@@ -63,7 +63,7 @@ public:
 
     Player* addPlayer();
     Ammo* addAmmo(Texture texture, Vector2f pos, Vector2f behavior, int damages = 1);
-    Ray* addRay(Texture texture, Vector2f pos, Vector2f behavior);
+    Ray* addRay(Texture texture, Vector2f pos, Vector2f behavior, int i = 0);
     Enemy* addEnemy(int type);
     Bonus* addBonus(Vector2f pos, int type = HEALING);
 

@@ -62,10 +62,24 @@ vector<float> Entity::getAmmoPositions() { return ammoPositions; }
 int Entity::getType() { return type; }
 void Entity::setType(int typev) { type = typev; }
 vector<Entity*> Entity::getLinkedEntities() { return linkedEntities; }
+vector<Entity*> Entity::getAllLinkedEntities() {
+    vector<Entity*> allLinkedVector = linkedEntities;
+    if (allLinkedVector.size() != 0) {
+        for (Entity* entity : allLinkedVector) {
+            for (Entity* subEntity : entity->getAllLinkedEntities()) {
+                allLinkedVector.push_back(subEntity);
+            }
+        }
+    }
+    return allLinkedVector;
+}
 void Entity::addToLinkedEntities(Entity* entity) { linkedEntities.push_back(entity); }
-void Entity::eraseLinkedEntities() {
+void Entity::eraseLinkedEntities(bool isBase) {
     for (int i = 0; i < linkedEntities.size(); i++) {
-        linkedEntities[i]->eraseLinkedEntities();
+        linkedEntities[i]->eraseLinkedEntities(false);
+        if (!isBase) {
+            delete (linkedEntities)[i];
+        }
         auto pos = linkedEntities.begin() + i;
         linkedEntities.erase(pos);
     }

@@ -564,11 +564,13 @@ void Game::update() {
                     ray->setFrameRate(0);
                     ray->continueAnimation();
                 }
-                if (ray->getLifeTime() > enemy->getFrameRate()) {
-                    manager->deleteEntity(manager->RAY, ray);
+                if (ray->getLifeTime() > enemy->getFrameRate() and parent == enemy) {
                     enemy->eraseLinkedEntities();
+                    manager->deleteEntity(manager->RAY, ray);
                     enemy->restartShootCooldown();
                     shootCooldownDecrease = 0;
+                    cout << endl << "deleted the ray" << enemy->getLinkedEntities().size() << endl;
+                    break;
                 }
                 parent = ray;
             }
@@ -585,14 +587,12 @@ void Game::update() {
                 }
                 if (enemy->getType() == manager->NAUTOLAN_SHIP or enemy->getType() == manager->BOSS_NAUTOLAN_SHIP) {
                     texture = rayTexture;
-                    Entity* adding = enemy;
-                    for (int i = 0; i < 10; i++) {
-                        Ray* ray = manager->addRay(texture, currentPos, currentDirection);
-                        adding->addToLinkedEntities(ray);
-                        if (enemy->getType() == manager->BOSS_NAUTOLAN_SHIP) {
-                            ray->getSprite()->setScale(Vector2f(3.f, 3.f));
+                    Ray* ray = manager->addRay(texture, currentPos, currentDirection);
+                    enemy->addToLinkedEntities(ray);
+                    if (enemy->getType() == manager->BOSS_NAUTOLAN_SHIP) {
+                        for (Entity* subRay : enemy->getAllLinkedEntities()) {
+                            subRay->getSprite()->setScale(Vector2f(3.f, 3.f));
                         }
-                        adding = ray;
                     }
                 }
                 else {
@@ -840,13 +840,10 @@ void Game::display() {
         window.draw(*bonus->getSprite());
     }
     for (Entity* ray : *(manager->getEntityList()[manager->RAY])) {
-        Vector2f basePos = ray->getPos();
         window.draw(*ray->getSprite());
-        for (int i = 1; i < 20; i++) {
-            ray->getSprite()->setPosition(Vector2f(ray->getPos().x, ray->getPos().y + ray->getHeight()));
-            window.draw(*ray->getSprite());
+        for (Entity* subRay : ray->getAllLinkedEntities()) {
+            window.draw(*subRay->getSprite());
         }
-        ray->getSprite()->setPosition(basePos);
     }
     Text bossText;
     bossText.setFont(fontMain); int bossTextCharSize = 30; bossText.setCharacterSize(bossTextCharSize);
@@ -1057,6 +1054,7 @@ void Game::mainMenu() {
                     for (int i = 0; i < 2; i++) {
                         manager->addEnemy(manager->BASIC_SHIP);
                     }
+                    manager->addEnemy(manager->BOSS_NAUTOLAN_SHIP);
                     for (int i = 0; i < (*manager->getExplosionList()).size(); i++) {
                         SFX* sfx = (*manager->getExplosionList())[i];
                         delete sfx;

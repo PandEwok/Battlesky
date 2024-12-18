@@ -69,8 +69,9 @@ public:
     int getType();
     void setType(int typev);
     vector<Entity*> getLinkedEntities();
+    vector<Entity*> getAllLinkedEntities();
     void addToLinkedEntities(Entity* entity);
-    void eraseLinkedEntities();
+    void eraseLinkedEntities(bool isBase = true);
     void setAsBoss();
     bool getIsBoss();
 

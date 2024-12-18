@@ -37,9 +37,14 @@ ObjectManager* ObjectManager::getInstance() {
         effectList.push_back(ammo);
         return ammo;
     }
-    Ray* ObjectManager::addRay(Texture texture, Vector2f pos, Vector2f behavior) {
+    Ray* ObjectManager::addRay(Texture texture, Vector2f pos, Vector2f behavior, int i) {
         Ray* ray = new Ray(texture, pos, behavior);
-        rayList.push_back(ray);
+        if (i < 35) {
+            ray->addToLinkedEntities(addRay(texture, Vector2f(ray->getPos().x, ray->getDown()), behavior, i + 1));
+        }
+        if (i == 0) {
+            rayList.push_back(ray);
+        }
         return ray;
     }
     Enemy* ObjectManager::addEnemy(int type = BASIC_SHIP) {
@@ -118,10 +123,6 @@ ObjectManager* ObjectManager::getInstance() {
         int i = 0;
         for (int index = 0; index < (*entityList[type]).size(); index++) {
             if ((*entityList[type])[index] == entity) { i = index; }
-        }
-        vector<Entity*> currentLinkedEntities = entity->getLinkedEntities();
-        for (Entity* ray : currentLinkedEntities) {
-            deleteEntity(RAY, ray);
         }
         delete (*entityList[type])[i];
         auto pos = entityList[type]->begin() + i;

@@ -7,7 +7,7 @@ using namespace std;
 
 
 
-int WinMain() {
+int main() {
     
     Image icon; icon.loadFromFile("icon.png");
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
