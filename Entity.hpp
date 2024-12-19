@@ -14,7 +14,8 @@ protected:
     float frameRate = 1.f, hurtTime = 10;
     int maxHp, hp, ammoAmount = 1, type = 0, weaponDamage = 1;
     float speed;
-    Texture texture, linkedAmmoTexture = ammoTexture;
+    Texture texture;
+    Texture* linkedAmmoTexture = &ammoTexture;
     Sprite sprite;
     Vector2f behavior;
     Clock shootCooldown;
@@ -39,8 +40,8 @@ public:
     void addToHurtTime(float value);
     Sprite* getSprite();
     Texture getTexture();
-    Texture getLinkedAmmoTexture();
-    void setLinkedAmmoTexture(Texture value);
+    Texture* getLinkedAmmoTexture();
+    void setLinkedAmmoTexture(Texture* value);
     Vector2f getPos();
     void setColor(int r, int g, int b, int alpha = 255);
     int getHeight();
@@ -101,7 +102,7 @@ public:
 
 class Ray : public Entity {
 public:
-    Ray(Texture _TEXTURE, Vector2f _POS, Vector2f _BEHAVIOR);
+    Ray(Texture _TEXTURE, Vector2f _POS, Vector2f _BEHAVIOR, int frameNumber = 4);
 };
 
 class Bonus : public Entity {

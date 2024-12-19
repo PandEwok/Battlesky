@@ -23,8 +23,8 @@ void Entity::setHurtTime(float value) { hurtTime = value; }
 void Entity::addToHurtTime(float value) { hurtTime += value; }
 Sprite* Entity::getSprite() { return &sprite; }
 Texture Entity::getTexture() { return texture; }
-Texture Entity::getLinkedAmmoTexture(){ return linkedAmmoTexture; }
-void Entity::setLinkedAmmoTexture(Texture value) { linkedAmmoTexture = value; }
+Texture* Entity::getLinkedAmmoTexture(){ return linkedAmmoTexture; }
+void Entity::setLinkedAmmoTexture(Texture* value) { linkedAmmoTexture = value; }
 Vector2f Entity::getPos() { return sprite.getPosition(); }
 void Entity::setColor(int r, int g, int b, int alpha) { return sprite.setColor(Color(r, g, b, alpha)); }
 int Entity::getHeight() { return sprite.getGlobalBounds().height; }
@@ -106,6 +106,7 @@ Player::Player() : Entity(playerShipYellowTexture, Vector2f(1.5f, 1.5f), 5, 350.
     sprite.setPosition(Vector2f(screenWidth / 2.f, screenHeight * 0.75f));
     setFrameRate(0.25f);
     weaponDamage = 2;
+    linkedAmmoTexture = &ammoTextureGreen;
     isPlayer = true;
 }
 
@@ -131,14 +132,14 @@ Ammo::Ammo(Texture _TEXTURE, Vector2f _POS, Vector2f _BEHAVIOR, int _DAMAGES) : 
     sprite.setPosition(_POS);
 }
 
-Ray::Ray(Texture _TEXTURE, Vector2f _POS, Vector2f _BEHAVIOR) : Entity(_TEXTURE, Vector2f(1.5f, 1.5f), 1, 300.f, _BEHAVIOR) {
+Ray::Ray(Texture _TEXTURE, Vector2f _POS, Vector2f _BEHAVIOR, int frameNumber) : Entity(_TEXTURE, Vector2f(1.5f, 1.5f), 1, 300.f, _BEHAVIOR) {
     int x;
     if (texture.getSize().y > texture.getSize().x) {
         x = texture.getSize().x;
     }
-    else { x = texture.getSize().x / 4.f; }
+    else { x = texture.getSize().x / frameNumber; }
     sprite.setTextureRect(IntRect(0, 0, x, texture.getSize().y));
-    sprite.setOrigin(Vector2f(texture.getSize().x / 4.f / 2.f, texture.getSize().y / 2.f));
+    sprite.setOrigin(Vector2f(texture.getSize().x / frameNumber / 2.f, texture.getSize().y / 2.f));
     sprite.setPosition(_POS);
 }
 

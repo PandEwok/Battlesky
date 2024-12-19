@@ -32,14 +32,19 @@ ObjectManager* ObjectManager::getInstance() {
         playerList.push_back(player);
         return player;
     }
-    Ammo* ObjectManager::addAmmo(Texture texture, Vector2f pos, Vector2f behavior, int damages) {
-        Ammo* ammo = new Ammo(texture, pos, behavior, damages);
+    Ammo* ObjectManager::addAmmo(Texture* texture, Vector2f pos, Vector2f behavior, int damages) {
+        Ammo* ammo = new Ammo(*texture, pos, behavior, damages);
         effectList.push_back(ammo);
         return ammo;
     }
-    Ray* ObjectManager::addRay(Texture texture, Vector2f pos, Vector2f behavior) {
-        Ray* ray = new Ray(texture, pos, behavior);
-        rayList.push_back(ray);
+    Ray* ObjectManager::addRay(Texture texture, Vector2f pos, Vector2f behavior, int frameNumber, int lenght, int i) {
+        Ray* ray = new Ray(texture, pos, behavior, frameNumber);
+        if (i < lenght) {
+            ray->addToLinkedEntities(addRay(texture, Vector2f(ray->getPos().x, ray->getDown()), behavior, frameNumber, lenght, i + 1));
+        }
+        if (i == 0) {
+            rayList.push_back(ray);
+        }
         return ray;
     }
     Enemy* ObjectManager::addEnemy(int type = BASIC_SHIP) {
@@ -68,6 +73,11 @@ ObjectManager* ObjectManager::getInstance() {
             enemy->getSprite()->setScale(Vector2f(1.1f, 1.1f));
             enemy->setFrameRate(0.6f);
         }
+        else if (type == ALIEN_FLAME_SHIP) {
+            enemy = new Enemy(alienFlameShip, randPos, 6, 100.f);
+            enemy->getSprite()->setScale(Vector2f(1.2f, 1.2f));
+            enemy->setFrameRate(1.1f);
+        }
         else if (type == BOSS_ALIEN_SHIP) {
             float ammoAngle = 0.6f;
             enemy = new Enemy(bossAlienShip, Vector2f(float(screenWidth / 2), 100.f), 70, 50.f, 5,
@@ -80,6 +90,11 @@ ObjectManager* ObjectManager::getInstance() {
             enemy = new Enemy(nautolanShip,randPos, 6, 50.f);
             enemy->getSprite()->setScale(Vector2f(1.8f, 1.8f));
             enemy->setFrameRate(3.f);
+        }
+        else if (type == NAUTOLAN_WAVE_SHIP) {
+            enemy = new Enemy(nautolanWaveShip, randPos, 6, 80.f, 1, vector<Vector2f>({ Vector2f(0,1.5f) }));
+            enemy->getSprite()->setScale(Vector2f(1.8f, 1.8f));
+            enemy->setFrameRate(2.f);
         }
         else if (type == BOSS_NAUTOLAN_SHIP) {
             enemy = new Enemy(bossNautolanShip, Vector2f(float(screenWidth / 2), 100.f), 100, 50.f);
@@ -119,10 +134,7 @@ ObjectManager* ObjectManager::getInstance() {
         for (int index = 0; index < (*entityList[type]).size(); index++) {
             if ((*entityList[type])[index] == entity) { i = index; }
         }
-        vector<Entity*> currentLinkedEntities = entity->getLinkedEntities();
-        for (Entity* ray : currentLinkedEntities) {
-            deleteEntity(RAY, ray);
-        }
+        entity->eraseLinkedEntities();
         delete (*entityList[type])[i];
         auto pos = entityList[type]->begin() + i;
         entityList[type]->erase(pos);

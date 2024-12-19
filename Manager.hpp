@@ -35,9 +35,11 @@ public:
         DOUBLE_BARREL_SHIP = 2,
         BOSS_CRUISER = 3,
         ALIEN_SHIP = 4,
-        BOSS_ALIEN_SHIP = 5,
-        NAUTOLAN_SHIP = 6,
-        BOSS_NAUTOLAN_SHIP = 7
+        ALIEN_FLAME_SHIP = 5,
+        BOSS_ALIEN_SHIP = 6,
+        NAUTOLAN_SHIP = 7,
+        NAUTOLAN_WAVE_SHIP = 8,
+        BOSS_NAUTOLAN_SHIP = 9
     };
     enum BonusEnum {
         HEALING = 1,
@@ -62,8 +64,8 @@ public:
     vector<vector<Entity*>*> getEntityList();
 
     Player* addPlayer();
-    Ammo* addAmmo(Texture texture, Vector2f pos, Vector2f behavior, int damages = 1);
-    Ray* addRay(Texture texture, Vector2f pos, Vector2f behavior);
+    Ammo* addAmmo(Texture* texture, Vector2f pos, Vector2f behavior, int damages = 1);
+    Ray* addRay(Texture texture, Vector2f pos, Vector2f behavior, int frameNumber = 4, int lenght = 30, int i = 0);
     Enemy* addEnemy(int type);
     Bonus* addBonus(Vector2f pos, int type = HEALING);
 

@@ -2,6 +2,7 @@
 #define Game_HPP
 
 #include "Manager.hpp"
+#include "Wave.hpp"
 
 using namespace sf;
 using namespace std;
@@ -26,6 +27,7 @@ private:
     float meteorSpeed = 1;
     vector<Clock*> clockTab = { &gameTime, &mainClock, &shootCooldown, &enemiesBehaviorCooldown };
     bool isMainMenu = true; //menus
+    bool isCustomMenu = false;
     bool isPauseMenu = false;
     bool isSettingsMenu = false;
     bool isInterlude = false;
@@ -33,6 +35,8 @@ private:
     Font fontMain; //fonts
     Font fontTitle;
     Text title; //main menu's title
+    Text customLevelText;
+    vector<Wave*> waveList = {};
     int scoreNum = 0; //score display
     Text score;
     int waveCount = 1;
@@ -73,6 +77,7 @@ private:
     Player player; //player
     bool isAdmin = false;
     Vector2f inputMovement;
+    Color playerAmmoColor = Color(255, 255, 255);
     float playerPreviousSpeed = player.getSpeed();
     Texture dashIconRedTexture; Texture dashIconGreenTexture; Sprite dashIcon;
     Texture dashArrowGreenTexture; Texture dashArrowRedTexture; Sprite dashArrow;
@@ -85,7 +90,6 @@ private:
     SoundBuffer uiClicSB; Sound uiClicSound;
     vector<Sound*> soundVector = { &music, &menuMusic, &uiSound, &shootSound, &shootEnemy, &explosionSound, &uiClicSound };
     RectangleShape volumeBar, volumeIndicator;
-    Color playerAmmoColor = Color(255, 255, 255);
     float shade = 0;
     RectangleShape screenEffect = RectangleShape(Vector2f(screenWidth, screenHeight));
 public:
@@ -105,6 +109,7 @@ public:
     void update();
     void display();
     void pauseMenu();
+    void customMenu();
     void settingsMenu();
     void mainMenu();
     void gameLoop();
