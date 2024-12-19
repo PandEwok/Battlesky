@@ -19,6 +19,7 @@ Texture nautolanShip;
 Texture bossNautolanShip;
 Texture ammoTexture; 
 Texture rayTexture;
+Texture loadingRayTexture;
 Texture spinningAmmoTexture;
 Texture bonusHealTexture;
 Texture bonusRifleTexture;
@@ -49,6 +50,7 @@ void loadTextures() {
 	bossNautolanShip.loadFromFile("Images/Foozle_2DS0014_Void_EnemyFleet_3/Nautolan/Designs - Base/PNGs/Nautolan Ship - Dreadnought - Base.png");
 	ammoTexture.loadFromFile("Images/Lunar Lander Upload/Effects/Fx_02_single.png");
 	rayTexture.loadFromFile("Images/Foozle_2DS0014_Void_EnemyFleet_3/Nautolan/Weapon Effects - Projectiles/PNGs/Nautolan - Ray.png");
+	loadingRayTexture.loadFromFile("Images/Foozle_2DS0014_Void_EnemyFleet_3/Nautolan/Weapon Effects - Projectiles/PNGs/Nautolan - LoadingRay.png");
 	spinningAmmoTexture.loadFromFile("Images/Foozle_2DS0014_Void_EnemyFleet_3/Nautolan/Weapon Effects - Projectiles/PNGs/Nautolan - Spinning Bullet.png");
 	bonusHealTexture.loadFromFile("Images/Icons/bonusHeal.png");
 	bonusRifleTexture.loadFromFile("Images/Icons/bonusRifle.png");

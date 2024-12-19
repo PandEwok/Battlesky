@@ -32,6 +32,7 @@ extern Texture nautolanShip;
 extern Texture bossNautolanShip;
 extern Texture ammoTexture;
 extern Texture rayTexture;
+extern Texture loadingRayTexture;
 extern Texture spinningAmmoTexture;
 extern Texture bonusHealTexture;
 extern Texture bonusRifleTexture;

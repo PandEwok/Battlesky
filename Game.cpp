@@ -58,7 +58,7 @@ Game::Game() {
         //exit button
     exitButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Exit_BTN.png"); exitButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Exit_BTN_on.png");
     exitButtonOffTexture.setSmooth(true); exitButtonOnTexture.setSmooth(true);
-    exitButton.setTexture(exitButtonOffTexture); exitButton.setOrigin(Vector2f(exitButtonOffTexture.getSize()) / 2.f); exitButton.setPosition(Vector2f(float(screenWidth / 2), 650.f));
+    exitButton.setTexture(exitButtonOffTexture); exitButton.setOrigin(Vector2f(exitButtonOffTexture.getSize()) / 2.f); exitButton.setPosition(Vector2f(float(screenWidth / 2), 800.f));
         //class choice
     arrowButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs/Backward_BTN.png"); arrowButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs_Active/Backward_BTN.png");
     arrowButtonOffTexture.setSmooth(true); arrowButtonOnTexture.setSmooth(true);
@@ -68,6 +68,9 @@ Game::Game() {
         //right arrow
     arrowButtonRight.setTexture(arrowButtonOffTexture); arrowButtonRight.setOrigin(Vector2f(arrowButtonOffTexture.getSize()) / 2.f);
     arrowButtonRight.setPosition(Vector2f(float(screenWidth / 10 * 9), 270.f)); arrowButtonRight.setScale(0.5, 0.5); arrowButtonRight.rotate(180.f);
+        // edit map
+    mapButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Map_BTN_off.png"); mapButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_Menu/Map_BTN_on.png");
+    mapButton.setTexture(mapButtonOffTexture); mapButton.setOrigin(Vector2f(mapButtonOffTexture.getSize()) / 2.f); mapButton.setPosition(Vector2f(float(screenWidth / 2), 540.f));
          //ship class icon
     currentPlayerIcon.setTexture(playerShipYellowTexture); currentPlayerIcon.setOrigin(Vector2f(playerShipYellowTexture.getSize()) / 2.f);
     currentPlayerIcon.setPosition(Vector2f(float(screenWidth / 6 * 2), 265.f)); currentPlayerIcon.setScale(2.5, 2.5);
@@ -75,8 +78,8 @@ Game::Game() {
     classDescriptionStats1.setString("  ++\n  ++++\n  ++"); classDescriptionStats1.setCharacterSize(20); classDescriptionStats1.setFont(fontMain);  classDescriptionStats1.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
     classDescriptionStats2.setString("  ++++\n  ++\n  ++"); classDescriptionStats2.setCharacterSize(20); classDescriptionStats2.setFont(fontMain);  classDescriptionStats2.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
     classDescriptionStats3.setString("  ++\n  ++\n  ++++"); classDescriptionStats3.setCharacterSize(20); classDescriptionStats3.setFont(fontMain);  classDescriptionStats3.setPosition(Vector2f(float(screenWidth / 8 * 5), 225));
-    //pause menu
-    float pauseMenuOffset = 150.f;
+        //pause menu
+    float pauseMenuOffset = 70.f;
     pauseHeaderTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Pause/Header.png");
     pauseHeader.setTexture(pauseHeaderTexture); pauseHeader.setOrigin(Vector2f(pauseHeaderTexture.getSize().x / 2, 0.f)); pauseHeader.setPosition(Vector2f(float(screenWidth / 2), 8.f + pauseMenuOffset));
     pauseBgTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Pause/Window.png");
@@ -99,13 +102,38 @@ Game::Game() {
     adminButtonOffTexture.setSmooth(true); adminButtonOnTexture.setSmooth(true);
     adminButton.setTexture(adminButtonOffTexture); adminButton.setOrigin(Vector2f(adminButtonOffTexture.getSize()) / 2.f); adminButton.setScale(Vector2f(0.6f, 0.6f)); adminButton.setPosition(Vector2f(float(screenWidth / 2 - 160), 450.f + pauseMenuOffset));
     adminText.setString("ADMIN\nPROTECTION"); adminText.setFont(fontMain); adminText.setCharacterSize(40); adminText.setOrigin(Vector2f(0.f, 60.f)); adminText.setPosition(adminButton.getPosition() + Vector2f(60.f, 0.f));
-    //health and death
+        //settings Button
+    settingsButtonOffTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs/Settings_BTN.png"); settingsButtonOnTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs_Active/Settings_BTN.png");
+    settingsButton.setTexture(settingsButtonOffTexture); settingsButton.setOrigin(Vector2f(settingsButtonOffTexture.getSize()) / 2.f); settingsButton.setScale(Vector2f(0.4f, 0.4f)); settingsButton.setPosition(Vector2f(float(screenWidth / 2), 680.f));
+        //settings Menu
+    settingsButtonArrowTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Buttons/BTNs/Play_BTN.png");settingsButtonDashTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Upgrade/Speed_Icon.png");settingsButtonShootTexture.loadFromFile("Images/Icons/1 Icons/14/Skillicon14_26.png");
+    settingsButtonUp.setTexture(settingsButtonArrowTexture); settingsButtonUp.rotate(270.f); settingsButtonUp.setOrigin(Vector2f(settingsButtonArrowTexture.getSize()) / 2.f); settingsButtonUp.setPosition(Vector2f(float(screenWidth / 2 - 180), 150.f + pauseMenuOffset)); settingsButtonUp.setScale(0.3f, 0.3f);
+    settingsButtonDown.setTexture(settingsButtonArrowTexture); settingsButtonDown.rotate(90.f); settingsButtonDown.setOrigin(Vector2f(settingsButtonArrowTexture.getSize()) / 2.f); settingsButtonDown.setPosition(Vector2f(float(screenWidth / 2 - 180), 250.f + pauseMenuOffset)); settingsButtonDown.setScale(0.3f, 0.3f);
+    settingsButtonLeft.setTexture(settingsButtonArrowTexture); settingsButtonLeft.rotate(180.f); settingsButtonLeft.setOrigin(Vector2f(settingsButtonArrowTexture.getSize()) / 2.f); settingsButtonLeft.setPosition(Vector2f(float(screenWidth / 2 - 180), 350.f + pauseMenuOffset)); settingsButtonLeft.setScale(0.3f, 0.3f);
+    settingsButtonRight.setTexture(settingsButtonArrowTexture); settingsButtonRight.setOrigin(Vector2f(settingsButtonArrowTexture.getSize()) / 2.f); settingsButtonRight.setPosition(Vector2f(float(screenWidth / 2 - 180), 450.f + pauseMenuOffset)); settingsButtonRight.setScale(0.3f, 0.3f);
+    settingsButtonDash.setTexture(settingsButtonDashTexture); settingsButtonDash.setOrigin(Vector2f(settingsButtonDashTexture.getSize()) / 2.f); settingsButtonDash.setPosition(Vector2f(float(screenWidth / 2 + 50), 250.f + pauseMenuOffset)); settingsButtonDash.setScale(0.5f, 0.5f);
+    settingsButtonShoot.setTexture(settingsButtonShootTexture); settingsButtonShoot.setOrigin(Vector2f(settingsButtonShootTexture.getSize()) / 2.f); settingsButtonShoot.setPosition(Vector2f(float(screenWidth / 2 + 50), 350.f + pauseMenuOffset)); settingsButtonShoot.setScale(2.f, 2.f);
+    settingsTextUp.setFont(fontMain); settingsTextUp.setCharacterSize(20); settingsTextUp.setPosition(Vector2f(float(screenWidth / 2 - 100), 140.f + pauseMenuOffset));
+    settingsTextDown.setFont(fontMain); settingsTextDown.setCharacterSize(20);  settingsTextDown.setPosition(Vector2f(float(screenWidth / 2 - 100), 240.f + pauseMenuOffset));
+    settingsTextLeft.setFont(fontMain); settingsTextLeft.setCharacterSize(20); settingsTextLeft.setPosition(Vector2f(float(screenWidth / 2 - 100), 340.f + pauseMenuOffset));
+    settingsTextRight.setFont(fontMain); settingsTextRight.setCharacterSize(20); settingsTextRight.setPosition(Vector2f(float(screenWidth / 2 - 100), 440.f + pauseMenuOffset));
+    settingsTextDash.setFont(fontMain); settingsTextDash.setCharacterSize(20);  settingsTextDash.setPosition(Vector2f(float(screenWidth / 2 +150), 240.f + pauseMenuOffset));
+    settingsTextShoot.setFont(fontMain); settingsTextShoot.setCharacterSize(20);  settingsTextShoot.setPosition(Vector2f(float(screenWidth / 2 +150), 340.f + pauseMenuOffset));
+
+    settingsTextUp.setString("Z");
+    settingsTextDown.setString("S");
+    settingsTextLeft.setString("Q");
+    settingsTextRight.setString("D");
+    settingsTextDash.setString("LShift");
+    settingsTextShoot.setString("Shoot");
+
+
+        
+        //health and death
     hpText.setFont(fontMain); hpText.setCharacterSize(30); hpText.setPosition(Vector2f(20.f, float(screenHeight - 50))); hpText.setFillColor(Color(157, 217, 146));
     hpBarTexture10.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_UI/Health_Bar_Table_10.png");
     hpBarTexture5.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_UI/Health_Bar_Table_5.png");
     hpBar.setTexture(hpBarTexture10); hpBar.setColor(Color(255,255,255, 220)); hpBar.setPosition(hpText.getPosition() + Vector2f(100.f, 0.f)); hpBar.setScale(Vector2f(0.5f, 0.5f));
-
-
     hpDotTexture.loadFromFile("Images/Space_Game_GUI_PNG/PNG/Main_UI/Health_Dot.png");
     hpDot.setTexture(hpDotTexture); hpDot.setColor(Color(255,255,255, 220)); hpDot.setScale(Vector2f(0.5f, 0.5f));
     hpBonusText.setFont(fontMain); hpBonusText.setCharacterSize(25); hpBonusText.setPosition(hpText.getPosition() - Vector2f(-10.f, 20.f));
@@ -154,22 +182,22 @@ void Game::userInput() {
         else if (event.type == Event::Closed) { window.close(); delete manager; exit(1); }
     }
     inputMovement = Vector2f(0.f, 0.f);
-    if (Keyboard::isKeyPressed(Keyboard::Scancode::W)) {
+    if (Keyboard::isKeyPressed(scancodeUp)) {
         inputMovement += Vector2f(0.f, -1.f);
     }
-    if (Keyboard::isKeyPressed(Keyboard::Scancode::S)) {
+    if (Keyboard::isKeyPressed(scancodeDown)) {
         inputMovement += Vector2f(0.f, 1.f);
     }
-    if (Keyboard::isKeyPressed(Keyboard::Scancode::D)) {
+    if (Keyboard::isKeyPressed(scancodeRight)) {
         inputMovement += Vector2f(1.2f, 0.f);
     }
-    if (Keyboard::isKeyPressed(Keyboard::Scancode::A)) {
+    if (Keyboard::isKeyPressed(scancodeLeft)) {
         inputMovement += Vector2f(-1.2f, 0.f);
     }
     if (dashCooldown > 3) {
         dashIcon.setTexture(dashIconGreenTexture);
         dashArrow.setTexture(dashArrowGreenTexture);
-        if (Keyboard::isKeyPressed(Keyboard::LShift)) {
+        if (Keyboard::isKeyPressed(scancodeDash)) {
             dashCooldown = 0;
             dashIcon.setTexture(dashIconRedTexture);
             dashArrow.setTexture(dashArrowRedTexture);
@@ -193,7 +221,7 @@ void Game::userInput() {
             }
         }
     }
-    if ((Keyboard::isKeyPressed(Keyboard::Space) or Mouse::isButtonPressed(Mouse::Left))) {
+    if ((Keyboard::isKeyPressed(scancodeShoot) or Mouse::isButtonPressed(Mouse::Left))) {
         playerPreviousSpeed = player.getSpeed();
         player.setSpeed(player.getSpeed() * 0.75f);
         if (shootCooldown.getElapsedTime().asSeconds() > player.getFrameRate()) {
@@ -572,7 +600,6 @@ void Game::update() {
                 }
                 parent = ray;
             }
-            
         }
         if (enemy->getShootCooldown().getElapsedTime().asSeconds() - shootCooldownDecrease >= enemy->getFrameRate()) {
             shootEnemy.play();
@@ -580,19 +607,27 @@ void Game::update() {
                 Vector2f currentDirection = enemy->getAmmoDirections()[i];
                 Vector2f currentPos = Vector2f(enemy->getPos().x + enemy->getAmmoPositions()[i], enemy->getDown());
                 Texture texture = ammoTexture;
+                Texture loadingTexture = ammoTexture;
                 if (enemy->getType() == manager->ALIEN_SHIP or enemy->getType() == manager->BOSS_ALIEN_SHIP) {
                     texture = spinningAmmoTexture;
                 }
                 if (enemy->getType() == manager->NAUTOLAN_SHIP or enemy->getType() == manager->BOSS_NAUTOLAN_SHIP) {
                     texture = rayTexture;
+                    loadingTexture = loadingRayTexture; 
                     Entity* adding = enemy;
-                    for (int i = 0; i < 10; i++) {
+                    Clock preShootCooldown;
+                    preShootCooldown.restart();
+                for (int i = 0; i < 10; i++) {
+                    Ray* ray = manager->addRay(loadingTexture, currentPos, currentDirection); 
+                    adding->addToLinkedEntities(ray);
+                    if (preShootCooldown.getElapsedTime().asSeconds() >= 2) {
                         Ray* ray = manager->addRay(texture, currentPos, currentDirection);
                         adding->addToLinkedEntities(ray);
                         if (enemy->getType() == manager->BOSS_NAUTOLAN_SHIP) {
                             ray->getSprite()->setScale(Vector2f(3.f, 3.f));
                         }
-                        adding = ray;
+                    }
+                    adding = ray;
                     }
                 }
                 else {
@@ -604,226 +639,226 @@ void Game::update() {
         }
     }
 
-    for (int i = 0; i < manager->getEntityList()[manager->EFFECT]->size(); i++) {
-        Entity* ammo = (*manager->getEntityList()[manager->EFFECT])[i];
-        ammo->move(ammo->getBehavior() * timeSinceLastFrame.asSeconds());
-        ammo->addToFrameRate(timeSinceLastFrame.asSeconds());
-        if (ammo->getFrameRate() > 0.08f) {
-            ammo->setFrameRate(0);
-            ammo->continueAnimation();
-        }
-        if (ammo->getDown() < 0 or ammo->getUp() > screenHeight) { manager->deleteEntity(manager->EFFECT, ammo); }
-        else {
-            if (ammo->getBehavior().y < 0.f) {
-                for (int j = 0; j < manager->getEntityList()[manager->ENEMY]->size(); j++) {
-                    Entity* currentEntity = (*manager->getEntityList()[manager->ENEMY])[j];
-                    if (ammo->isColiding(currentEntity)) {
-                        cout << "\n\033[32menemy hit!\033[0m\n";
-                        currentEntity->decreaseHp(ammo->getMaxHp());
-                        manager->deleteEntity(manager->EFFECT, ammo);
-                        currentEntity->setHurtTime(0);
-                        currentEntity->setColor(255, 100, 100);
-                        cout << "remaining hp : " << currentEntity->getHp() << endl;
-                        if (currentEntity->getHp() <= 0) {
-                            int randIsBonus = rand() % 100;
-                            if (randIsBonus < 100) {
-                                int randType = rand() % 100;
-                                int type = 0;
-                                float healProb = 50, rifleProb = 50.f / 3.f, sniperProb = 50.f / 3.f, pistolProb = 50.f / 3.f;
-                                if (randType < healProb) { type = manager->HEALING; }
-                                else if (randType < healProb + rifleProb) { type = manager->RIFLE; }
-                                else if (randType < healProb + rifleProb + sniperProb) { type = manager->SNIPER; }
-                                else { type = manager->PISTOL; }
-                                manager->addBonus(currentEntity->getPos(), type);
-                            }
-                            manager->addExplosion(currentEntity->getPos(), currentEntity->getHeight() * 0.015);
-                            explosionSound.play();
-                            manager->deleteEntity(manager->ENEMY, currentEntity);
-                            scoreNum++;
-                            if (scoreNum == 10) { waveCount = 2; }
-                            if (scoreNum == 20) {
-                                manager->addEnemy(manager->BOSS_CRUISER);
-                                for (int i = 0; i < 2; i++) {
-                                    manager->addEnemy(manager->DOUBLE_BARREL_SHIP);
+        for (int i = 0; i < manager->getEntityList()[manager->EFFECT]->size(); i++) {
+            Entity* ammo = (*manager->getEntityList()[manager->EFFECT])[i];
+            ammo->move(ammo->getBehavior() * timeSinceLastFrame.asSeconds());
+            ammo->addToFrameRate(timeSinceLastFrame.asSeconds());
+            if (ammo->getFrameRate() > 0.08f) {
+                ammo->setFrameRate(0);
+                ammo->continueAnimation();
+            }
+            if (ammo->getDown() < 0 or ammo->getUp() > screenHeight) { manager->deleteEntity(manager->EFFECT, ammo); }
+            else {
+                if (ammo->getBehavior().y < 0.f) {
+                    for (int j = 0; j < manager->getEntityList()[manager->ENEMY]->size(); j++) {
+                        Entity* currentEntity = (*manager->getEntityList()[manager->ENEMY])[j];
+                        if (ammo->isColiding(currentEntity)) {
+                            cout << "\n\033[32menemy hit!\033[0m\n";
+                            currentEntity->decreaseHp(ammo->getMaxHp());
+                            manager->deleteEntity(manager->EFFECT, ammo);
+                            currentEntity->setHurtTime(0);
+                            currentEntity->setColor(255, 100, 100);
+                            cout << "remaining hp : " << currentEntity->getHp() << endl;
+                            if (currentEntity->getHp() <= 0) {
+                                int randIsBonus = rand() % 100;
+                                if (randIsBonus < 100) {
+                                    int randType = rand() % 100;
+                                    int type = 0;
+                                    float healProb = 50, rifleProb = 50.f / 3.f, sniperProb = 50.f / 3.f, pistolProb = 50.f / 3.f;
+                                    if (randType < healProb) { type = manager->HEALING; }
+                                    else if (randType < healProb + rifleProb) { type = manager->RIFLE; }
+                                    else if (randType < healProb + rifleProb + sniperProb) { type = manager->SNIPER; }
+                                    else { type = manager->PISTOL; }
+                                    manager->addBonus(currentEntity->getPos(), type);
                                 }
-                                waveCount = 3;
-                            }
-                            if (waveCount == 4 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
-                                for (int i = 0; i < 2; i++) {
-                                    manager->addEnemy(manager->ALIEN_SHIP);
+                                manager->addExplosion(currentEntity->getPos(), currentEntity->getHeight() * 0.015);
+                                explosionSound.play(); 
+                                manager->deleteEntity(manager->ENEMY, currentEntity);
+                                scoreNum++;
+                                if (scoreNum == 10) { waveCount = 2; }
+                                if (scoreNum == 20) {
+                                    manager->addEnemy(manager->BOSS_CRUISER);
+                                    for (int i = 0; i < 2; i++) {
+                                        manager->addEnemy(manager->DOUBLE_BARREL_SHIP);
+                                    }
+                                    waveCount = 3;
                                 }
-                                waveCount = 5;
-                            }
-                            if (waveCount == 5 and scoreNum == 60) {
-                                manager->addEnemy(manager->BOSS_ALIEN_SHIP);
-                                for (int i = 0; i < 2; i++) {
-                                    manager->addEnemy(manager->ALIEN_SHIP);
+                                if (waveCount == 4 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
+                                    for (int i = 0; i < 2; i++) {
+                                        manager->addEnemy(manager->ALIEN_SHIP);
+                                    }
+                                    waveCount = 5;
                                 }
-                                waveCount = 6;
-                            }
-                            if (waveCount == 8 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
-                                manager->addEnemy(manager->BOSS_NAUTOLAN_SHIP);
-                                for (int i = 0; i < 2; i++) {
-                                    manager->addEnemy(manager->NAUTOLAN_SHIP);
+                                if (waveCount == 5 and scoreNum == 60) {
+                                    manager->addEnemy(manager->BOSS_ALIEN_SHIP);
+                                    for (int i = 0; i < 2; i++) {
+                                        manager->addEnemy(manager->ALIEN_SHIP);
+                                    }
+                                    waveCount = 6;
                                 }
-                                waveCount = 9;
+                                if (waveCount == 8 and manager->getEntityList()[manager->ENEMY]->size() == 0) {
+                                    manager->addEnemy(manager->BOSS_NAUTOLAN_SHIP);
+                                    for (int i = 0; i < 2; i++) {
+                                        manager->addEnemy(manager->NAUTOLAN_SHIP);
+                                    }
+                                    waveCount = 9;
+                                }
+                                score.setString("SCORE : " + to_string(scoreNum) + "\n wave " + to_string(waveCount));
                             }
-                            score.setString("SCORE : " + to_string(scoreNum) + "\n wave " + to_string(waveCount));
                         }
                     }
                 }
-            }
-            else {
-                if (player.isColiding(ammo)) {
-                    cout << "\n\033[32player hit!\033[0m\n";
-                    player.decreaseHp(ammo->getMaxHp());
-                    manager->deleteEntity(manager->EFFECT, ammo);
-                    player.setHurtTime(0);
-                    player.setColor(255, 100, 100);
+                else {
+                    if (player.isColiding(ammo)) {
+                        cout << "\n\033[32player hit!\033[0m\n";
+                        player.decreaseHp(ammo->getMaxHp());
+                        manager->deleteEntity(manager->EFFECT, ammo);
+                        player.setHurtTime(0);
+                        player.setColor(255, 100, 100);
+                    }
                 }
             }
         }
-    }
-    for (int i = 0; i < manager->getEntityList()[manager->BONUS]->size(); i++) {
-        Entity* bonus = (*manager->getEntityList()[manager->BONUS])[i];
-        bonus->move(Vector2f(0, 1) * timeSinceLastFrame.asSeconds());
-        bonus->addToFrameRate(timeSinceLastFrame.asSeconds());
-        bonus->addToLifeTime(timeSinceLastFrame.asSeconds());
-        if (bonus->isColiding(&player)) {
-            if (bonus->getType() == manager->HEALING and player.getHp() <= player.getMaxHp()) {
-                manager->deleteEntity(manager->BONUS, bonus);
-                player.decreaseHp(-1);
+        for (int i = 0; i < manager->getEntityList()[manager->BONUS]->size(); i++) {
+            Entity* bonus = (*manager->getEntityList()[manager->BONUS])[i];
+            bonus->move(Vector2f(0, 1) * timeSinceLastFrame.asSeconds());
+            bonus->addToFrameRate(timeSinceLastFrame.asSeconds());
+            bonus->addToLifeTime(timeSinceLastFrame.asSeconds());
+            if (bonus->isColiding(&player)) {
+                if (bonus->getType() == manager->HEALING and player.getHp() <= player.getMaxHp()) {
+                    manager->deleteEntity(manager->BONUS, bonus);
+                    player.decreaseHp(-1);
+                }
+                else if (bonus->getType() == manager->RIFLE) {
+                    manager->deleteEntity(manager->BONUS, bonus);
+                    player.setFrameRate(0.15f);
+                    playerAmmoColor = Color(255, 255, 10);
+                    player.setAmmoDirections({ Vector2f(0, -1) });
+                    player.setWeaponDamage(100);
+                }
+                else if (bonus->getType() == manager->SNIPER) {
+                    manager->deleteEntity(manager->BONUS, bonus);
+                    player.setFrameRate(0.6f);
+                    playerAmmoColor = Color(255, 50, 255);
+                    player.setAmmoDirections({ Vector2f(0, -2) });
+                    player.setWeaponDamage(5);
+                }
+                else if (bonus->getType() == manager->PISTOL) {
+                    manager->deleteEntity(manager->BONUS, bonus);
+                    player.setFrameRate(0.25f);
+                    playerAmmoColor = Color(255, 255, 255);
+                    player.setAmmoDirections({ Vector2f(0, -1) });
+                    player.setWeaponDamage(2);
+                }
             }
-            else if (bonus->getType() == manager->RIFLE) {
+            else if (bonus->getLifeTime() > 4.5f) {
                 manager->deleteEntity(manager->BONUS, bonus);
-                player.setFrameRate(0.15f);
-                playerAmmoColor = Color(255, 255, 10);
-                player.setAmmoDirections({ Vector2f(0, -1) });
-                player.setWeaponDamage(100);
             }
-            else if (bonus->getType() == manager->SNIPER) {
-                manager->deleteEntity(manager->BONUS, bonus);
-                player.setFrameRate(0.6f);
-                playerAmmoColor = Color(255, 50, 255);
-                player.setAmmoDirections({ Vector2f(0, -2) });
-                player.setWeaponDamage(5);
-            }
-            else if (bonus->getType() == manager->PISTOL) {
-                manager->deleteEntity(manager->BONUS, bonus);
-                player.setFrameRate(0.25f);
-                playerAmmoColor = Color(255, 255, 255);
-                player.setAmmoDirections({ Vector2f(0, -1) });
-                player.setWeaponDamage(2);
+            else if (bonus->getLifeTime() > 3.5f) {
+                if (bonus->getFrameRate() > 0.25f) {
+                    bonus->setFrameRate(0);
+                    bonus->continueAnimation();
+                }
             }
         }
-        else if (bonus->getLifeTime() > 4.5f) {
-            manager->deleteEntity(manager->BONUS, bonus);
-        }
-        else if (bonus->getLifeTime() > 3.5f) {
-            if (bonus->getFrameRate() > 0.25f) {
-                bonus->setFrameRate(0);
-                bonus->continueAnimation();
-            }
-        }
-    }
 
-    for (int i = 0; i < (*manager->getExplosionList()).size(); i++) {
-        SFX* sfx = (*manager->getExplosionList())[i];
-        if (sfx->getFrameClock()->getElapsedTime().asSeconds() > 0.04f) {
-            IntRect newRect = sfx->getSprite()->getTextureRect();
-            newRect.left += sfx->getSize().y;
-            if (sfx->getTexture().getSize().x <= newRect.left) {
-                delete sfx;
-                auto pos = manager->getExplosionList()->begin() + i;
-                manager->getExplosionList()->erase(pos);
-            }
-            else {
-                sfx->getSprite()->setTextureRect(newRect);
-                sfx->getFrameClock()->restart();
+        for (int i = 0; i < (*manager->getExplosionList()).size(); i++) {
+            SFX* sfx = (*manager->getExplosionList())[i];
+            if (sfx->getFrameClock()->getElapsedTime().asSeconds() > 0.04f) {
+                IntRect newRect = sfx->getSprite()->getTextureRect();
+                newRect.left += sfx->getSize().y;
+                if (sfx->getTexture().getSize().x <= newRect.left) {
+                    delete sfx;
+                    auto pos = manager->getExplosionList()->begin() + i;
+                    manager->getExplosionList()->erase(pos);
+                }
+                else {
+                    sfx->getSprite()->setTextureRect(newRect);
+                    sfx->getFrameClock()->restart();
+                }
             }
         }
-    }
-    menuTime = Time().Zero;
-    //death
-    if (player.getHp() <= 0 and !isAdmin) {
-        bool isDeath = true;
-        bool onMenu = false; resumeButton.setTexture(resumeButtonOffTexture);
-        bool onExit = false; pauseExitButton.setTexture(pauseExitButtonOffTexture);
-        bool onVolume = false;
-        Sprite tableRect(table); tableRect.setOrigin(Vector2f(table.getSize().x / 2, table.getSize().y / 2));
-        while (isDeath) {
-            Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
-                    if (onMenu) {
-                        uiClicSound.play();
-                        isMainMenu = true; isDeath = false;
+        menuTime = Time().Zero;
+        //death
+        if (player.getHp() <= 0 and !isAdmin) {
+            bool isDeath = true;
+            bool onMenu = false; resumeButton.setTexture(resumeButtonOffTexture);
+            bool onExit = false; pauseExitButton.setTexture(pauseExitButtonOffTexture);
+            bool onVolume = false;
+            Sprite tableRect(table); tableRect.setOrigin(Vector2f(table.getSize().x / 2, table.getSize().y / 2));
+            while (isDeath) {
+                Event event;
+                while (window.pollEvent(event)) {
+                    if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
+                        if (onMenu) {
+                            uiClicSound.play();
+                            isMainMenu = true; isDeath = false;
+                        }
+                        else if (onExit) {
+                            uiClicSound.play();
+                            window.close(); delete manager; exit(1);
+                        }
                     }
-                    else if (onExit) {
-                        uiClicSound.play();
-                        window.close(); delete manager; exit(1);
+                    else if (event.type == Event::Closed) { window.close(); delete manager; exit(1); }
+                }
+                if (onVolume and Mouse::isButtonPressed(Mouse::Left)) {
+                    if (Mouse::getPosition(window).x <= volumeBar.getPosition().x + volumeBar.getSize().x / 2 and Mouse::getPosition(window).x >= volumeBar.getPosition().x - volumeBar.getSize().x / 2) {
+                        volumeIndicator.setPosition(Vector2f(Mouse::getPosition(window).x, volumeIndicator.getPosition().y));
+                        for (Sound* currentSound : soundVector) {
+                            currentSound->setVolume(10.f + (volumeIndicator.getPosition().x - volumeBar.getPosition().x) / 7.5f);
+                        }
                     }
                 }
-                else if (event.type == Event::Closed) { window.close(); delete manager; exit(1); }
-            }
-            if (onVolume and Mouse::isButtonPressed(Mouse::Left)) {
-                if (Mouse::getPosition(window).x <= volumeBar.getPosition().x + volumeBar.getSize().x / 2 and Mouse::getPosition(window).x >= volumeBar.getPosition().x - volumeBar.getSize().x / 2) {
-                    volumeIndicator.setPosition(Vector2f(Mouse::getPosition(window).x, volumeIndicator.getPosition().y));
-                    for (Sound* currentSound : soundVector) {
-                        currentSound->setVolume(10.f + (volumeIndicator.getPosition().x - volumeBar.getPosition().x) / 7.5f);
-                    }
-                }
-            }
-            window.clear();
-            display();
-            window.draw(chronoText);
-            RectangleShape blurry(Vector2f(screenWidth, screenHeight));
-            blurry.setFillColor(Color(255, 255, 255, 150));
-            window.draw(blurry);
-            tableRect.setScale(Vector2f(0.6f, 0.5f)); tableRect.setPosition(volumeBar.getPosition() + Vector2f(0.f, 2.f));
-            window.draw(tableRect);
-            window.draw(volumeBar); window.draw(volumeIndicator);
-            if (volumeIndicator.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window))) or volumeBar.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
-                if (volumeIndicator.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
-                    volumeIndicator.setFillColor(Color(255, 255, 255));
-                }
-                else { volumeIndicator.setFillColor(Color(210, 210, 210)); }
-                if (!onVolume) {
-                    onVolume = true;
+                window.clear();
+                display();
+                window.draw(chronoText);
+                RectangleShape blurry(Vector2f(screenWidth, screenHeight));
+                blurry.setFillColor(Color(255, 255, 255, 150));
+                window.draw(blurry);
+                tableRect.setScale(Vector2f(0.6f, 0.5f)); tableRect.setPosition(volumeBar.getPosition() + Vector2f(0.f, 2.f));
+                window.draw(tableRect);
+                window.draw(volumeBar); window.draw(volumeIndicator);
+                if (volumeIndicator.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window))) or volumeBar.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
                     if (volumeIndicator.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
-                        uiSound.play();
+                        volumeIndicator.setFillColor(Color(255, 255, 255));
+                    }
+                    else { volumeIndicator.setFillColor(Color(210, 210, 210)); }
+                    if (!onVolume) {
+                        onVolume = true;
+                        if (volumeIndicator.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+                            uiSound.play();
+                        }
                     }
                 }
-            }
-            else if (onVolume and !Mouse::isButtonPressed(Mouse::Left)) { volumeIndicator.setFillColor(Color(210, 210, 210)); onVolume = false; }
+                else if (onVolume and !Mouse::isButtonPressed(Mouse::Left)) { volumeIndicator.setFillColor(Color(210, 210, 210)); onVolume = false; }
 
-            tableRect.setScale(Vector2f(1.2f, 1.2f));
-            tableRect.setPosition(menuText.getPosition() + Vector2f(80, 5));
-            window.draw(tableRect);
-            tableRect.setPosition(pauseExitText.getPosition() + Vector2f(80, 5));
-            window.draw(tableRect);
-            window.draw(menuButton); window.draw(menuText); window.draw(deathText);
+                tableRect.setScale(Vector2f(1.2f, 1.2f));
+                tableRect.setPosition(menuText.getPosition() + Vector2f(80, 5));
+                window.draw(tableRect);
+                tableRect.setPosition(pauseExitText.getPosition() + Vector2f(80, 5));
+                window.draw(tableRect);
+                window.draw(menuButton); window.draw(menuText); window.draw(deathText);
 
-            if (menuButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
-                if (!onMenu) {
-                    menuButton.setTexture(menuButtonOnTexture);
-                    onMenu = true; uiSound.play();
+                if (menuButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+                    if (!onMenu) {
+                        menuButton.setTexture(menuButtonOnTexture);
+                        onMenu = true; uiSound.play();
+                    }
                 }
-            }
-            else if (onMenu) { menuButton.setTexture(menuButtonOffTexture); onMenu = false; }
-            window.draw(pauseExitButton); window.draw(pauseExitText);
-            if (pauseExitButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
-                if (!onExit) {
-                    pauseExitButton.setTexture(pauseExitButtonOnTexture);
-                    onExit = true; uiSound.play();
+                else if (onMenu) { menuButton.setTexture(menuButtonOffTexture); onMenu = false; }
+                window.draw(pauseExitButton); window.draw(pauseExitText);
+                if (pauseExitButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+                    if (!onExit) {
+                        pauseExitButton.setTexture(pauseExitButtonOnTexture);
+                        onExit = true; uiSound.play();
+                    }
                 }
+                else if (onExit) { pauseExitButton.setTexture(pauseExitButtonOffTexture); onExit = false; }
+                cursor.setPosition(static_cast<Vector2f>(Mouse::getPosition(window)));
+                window.draw(cursor);
+                window.display();
             }
-            else if (onExit) { pauseExitButton.setTexture(pauseExitButtonOffTexture); onExit = false; }
-            cursor.setPosition(static_cast<Vector2f>(Mouse::getPosition(window)));
-            window.draw(cursor);
-            window.display();
         }
-    }
 }
 
 void Game::display() {
@@ -901,6 +936,87 @@ void Game::display() {
     window.draw(screenEffect);
 }
 
+void Game::settingsMenu() { 
+    bool onUp = false;
+    bool onDown = false;
+    bool onLeft = false;
+    bool onRight = false;
+    bool onShoot = false;
+    bool onDash = false;
+
+    while (isSettingsMenu) {
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::KeyPressed and Keyboard::isKeyPressed(Keyboard::Escape)) { 
+                isSettingsMenu = false;
+            }
+            else if (event.type == Event::MouseButtonPressed and Mouse::isButtonPressed(Mouse::Left)) {
+                if (onUp) {
+                    uiClicSound.play();
+                    Keyboard::Scancode keyUp = event.key.scancode;
+                    scancodeUp = keyUp;
+                    onUp = false;
+                    // action a faire
+                }
+                if (onDown) {
+                    uiClicSound.play();
+                    // action a faire
+                }
+                if (onLeft) {
+                    uiClicSound.play();
+                    // action a faire
+                }
+                if (onRight) {
+                    uiClicSound.play();
+                    // action a faire
+                }
+                if (onDash) {
+                    uiClicSound.play();
+                    // action a faire
+                }
+                if (onShoot) {
+                    uiClicSound.play();
+                    // action a faire
+                }
+            }
+            else if (event.type == Event::Closed) { window.close(); delete manager; exit(1); }
+        }
+        window.clear();
+        display();
+        window.draw(chronoText);
+        window.draw(pauseBg);
+        window.draw(pauseHeader);
+        window.draw(settingsButtonUp); window.draw(settingsTextUp);
+        if (settingsButtonUp.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            onUp = true ;
+        }
+        window.draw(settingsButtonDown); window.draw(settingsTextDown);
+        if (settingsButtonDown.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) { 
+            onDown = true;
+        }
+        window.draw(settingsButtonLeft); window.draw(settingsTextLeft);
+        if (settingsButtonLeft.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            onLeft = true;
+        }
+        window.draw(settingsButtonRight); window.draw(settingsTextRight);
+        if (settingsButtonRight.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            onRight = true;
+        }
+        window.draw(settingsButtonDash); window.draw(settingsTextDash);
+        if (settingsButtonRight.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            onDash = true;
+        }
+        window.draw(settingsButtonShoot); window.draw(settingsTextShoot);
+        if (settingsButtonRight.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            onShoot = true;
+        }
+
+        cursor.setPosition(static_cast<Vector2f>(Mouse::getPosition(window)));
+        window.draw(cursor);
+        window.display();
+    }
+  }
+
 void Game::pauseMenu() {
     Clock pauseMenuClock;
     bool onResume = false; menuButton.setTexture(menuButtonOffTexture);
@@ -908,6 +1024,7 @@ void Game::pauseMenu() {
     bool onExit = false; pauseExitButton.setTexture(pauseExitButtonOffTexture);
     bool onAdmin = false;
     bool onVolume = false;
+    bool onSettings = false; settingsButton.setTexture(settingsButtonOffTexture);
     music.pause();
     Color previousScreenEffectColor = screenEffect.getFillColor();
     screenEffect.setFillColor(screenEffect.getFillColor() + Color(0,0,0, 60));
@@ -943,6 +1060,10 @@ void Game::pauseMenu() {
                         adminButton.setTexture(adminButtonOffTexture);
                         isAdmin = false;
                     }
+                }
+                else if (onSettings) {
+                    uiClicSound.play();
+                     isSettingsMenu = true;settingsMenu();
                 }
             }
             else if (event.type == Event::Closed) { window.close(); delete manager; exit(1); }
@@ -987,6 +1108,15 @@ void Game::pauseMenu() {
             }
         }
         else if (onExit) { pauseExitButton.setTexture(pauseExitButtonOffTexture); onExit = false; }
+        //settings button
+        window.draw(settingsButton);
+        if (settingsButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            if (!onSettings) {
+                settingsButton.setTexture(settingsButtonOnTexture);
+                onSettings = true; uiSound.play();
+            }
+        }
+        else if (onSettings) { settingsButton.setTexture(settingsButtonOffTexture); onSettings = false; }
         //admin button
         window.draw(adminButton); window.draw(adminText);
         if (adminButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
@@ -1024,6 +1154,8 @@ void Game::mainMenu() {
     bool onExit = false; exitButton.setTexture(exitButtonOffTexture);
     bool onAdmin = false;
     bool onVolume = false;
+    bool onMap = false; mapButton.setTexture(mapButtonOffTexture); 
+    bool onSettings = false; settingsButton.setTexture(settingsButtonOffTexture);
     menuMusic.play();
     Vector2f buttonAmplification = Vector2f(0.05, 0.05);
     Sprite menuAdminButton = adminButton;
@@ -1112,6 +1244,7 @@ void Game::mainMenu() {
                         prop->getSprite()->setColor(background.getColor());
                     }
                     isMainMenu = false;
+                    playButton.setScale(playButton.getScale() - buttonAmplification) ;
                 }
                 if (onLeft or onRight or onStart) {
                     if (onLeft)
@@ -1147,6 +1280,13 @@ void Game::mainMenu() {
                         break;
                     }
                 }
+                else if (onMap) {
+                    uiClicSound.play();
+                }
+                else if (onSettings) {
+                    uiClicSound.play();
+                    isSettingsMenu = true;
+                    }
                 else if (onExit) {
                     uiClicSound.play();
                     window.close(); delete manager; exit(1);
@@ -1176,24 +1316,26 @@ void Game::mainMenu() {
         }
         window.clear();
         window.draw(background);
+
         if (arrowButtonLeft.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
             if (!onLeft) {
                 arrowButtonLeft.setTexture(arrowButtonOnTexture);
+                arrowButtonLeft.setScale(arrowButtonLeft.getScale() + buttonAmplification);
                 onLeft = true; uiSound.play();
             }
         }
-        else if (onLeft) { arrowButtonLeft.setTexture(arrowButtonOffTexture); onLeft = false; }
+        else if (onLeft) { arrowButtonLeft.setTexture(arrowButtonOffTexture); arrowButtonLeft.setScale(arrowButtonRight.getScale() - buttonAmplification); onLeft = false; }
         window.draw(arrowButtonLeft);
         //droit
         if (arrowButtonRight.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
             if (!onRight) {
                 arrowButtonRight.setTexture(arrowButtonOnTexture);
+                arrowButtonRight.setScale(arrowButtonRight.getScale() + buttonAmplification);
                 onRight = true; uiSound.play();
             }
         }
-        else if (onRight) { arrowButtonRight.setTexture(arrowButtonOffTexture); onRight = false; }
+        else if (onRight) { arrowButtonRight.setTexture(arrowButtonOffTexture); arrowButtonRight.setScale(arrowButtonRight.getScale() - buttonAmplification); onRight = false; }
         window.draw(arrowButtonRight);
-
         window.draw(classDescription);
         switch (shipNumber)
         {
@@ -1223,6 +1365,27 @@ void Game::mainMenu() {
         }
         else if (onStart) { playButton.setTexture(playButtonOffTexture); playButton.setScale(playButton.getScale() - buttonAmplification); onStart = false; }
         window.draw(playButton);
+        //map-button check
+        if (mapButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            if (!onMap) {
+                mapButton.setTexture(mapButtonOnTexture);
+                mapButton.setScale(mapButton.getScale() + buttonAmplification);
+                onMap = true; uiSound.play();
+            }
+        }
+        else if (onMap) { mapButton.setTexture(mapButtonOffTexture); mapButton.setScale(mapButton.getScale() - buttonAmplification); onMap = false; }
+        window.draw(mapButton);
+        //settings-button check
+        if (settingsButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
+            if (!onSettings) {
+                settingsButton.setTexture(settingsButtonOnTexture);
+                settingsButton.setScale(settingsButton.getScale() + buttonAmplification);
+                onSettings = true; uiSound.play();
+                settingsMenu();
+            }
+        }
+        else if (onSettings) { settingsButton.setTexture(settingsButtonOffTexture); settingsButton.setScale(settingsButton.getScale() - buttonAmplification); onSettings = false; }
+        window.draw(settingsButton);
         //exit-button check
         if (exitButton.getGlobalBounds().contains(window.mapPixelToCoords(Mouse::getPosition(window)))) {
             if (!onExit) {
@@ -1292,6 +1455,9 @@ void Game::gameLoop() {
         }
         else if (isPauseMenu) {
             pauseMenu();
+        }
+        else if (isSettingsMenu) {
+            settingsMenu(); 
         }
     }
 }

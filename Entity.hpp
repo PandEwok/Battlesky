@@ -18,6 +18,8 @@ protected:
     Sprite sprite;
     Vector2f behavior;
     Clock shootCooldown;
+    Clock preShootCooldown;
+    bool isPreShooting = false;
     vector<Vector2f> ammoDirections = { Vector2f(0, -1) };
     vector<float> ammoPositions = {};
     vector<Entity*> linkedEntities = {};
@@ -89,6 +91,7 @@ public:
 class Enemy : public Entity {
 public:
     Enemy(Texture _TEXTURE, Vector2f _POS, int _MAXHP, float _SPEED, int _AMMOAMOUNT = 1, vector<Vector2f> _AMMODIRECTIONS = { Vector2f(0.f, 1.f) }, vector<float> _AMMOPOSITIONS = {});
+
 };
 
 class Ammo : public Entity {

@@ -27,6 +27,7 @@ private:
     vector<Clock*> clockTab = { &gameTime, &mainClock, &shootCooldown, &enemiesBehaviorCooldown };
     bool isMainMenu = true; //menus
     bool isPauseMenu = false;
+    bool isSettingsMenu = false;
     bool isInterlude = false;
     Text interludeStartText;
     Font fontMain; //fonts
@@ -37,12 +38,17 @@ private:
     int waveCount = 1;
     float interludeChrono = 0;
     Text deathText;
+    Text settingsTextUp;Text settingsTextDown;Text settingsTextLeft;Text settingsTextRight;Text settingsTextShoot; Text settingsTextDash;
     Texture table;
     Texture pauseHeaderTexture; Sprite pauseHeader;
     Texture pauseBgTexture; Sprite pauseBg;
     Texture playButtonOffTexture; Texture playButtonOnTexture; Sprite playButton; //menu buttons
     Texture exitButtonOffTexture; Texture exitButtonOnTexture; Sprite exitButton;
     Texture arrowButtonOffTexture; Texture arrowButtonOnTexture; Sprite arrowButtonLeft; Sprite arrowButtonRight;
+    Texture mapButtonOffTexture;Texture mapButtonOnTexture;  Sprite mapButton;
+    Texture settingsButtonOffTexture;Texture settingsButtonOnTexture;  Sprite settingsButton;
+    Texture settingsButtonArrowTexture; Texture settingsButtonDashTexture; Texture settingsButtonShootTexture; 
+    Sprite settingsButtonUp; Sprite settingsButtonDown; Sprite settingsButtonLeft; Sprite settingsButtonRight; Sprite settingsButtonShoot; Sprite settingsButtonDash;
     Sprite currentPlayerIcon;
     Text classDescription;
     Text classDescriptionStats1; Text classDescriptionStats2; Text classDescriptionStats3;
@@ -83,6 +89,13 @@ private:
     float shade = 0;
     RectangleShape screenEffect = RectangleShape(Vector2f(screenWidth, screenHeight));
 public:
+    Keyboard::Scancode scancodeUp = Keyboard::Scancode::W;
+    Keyboard::Scancode scancodeDown = Keyboard::Scancode::S;
+    Keyboard::Scancode scancodeLeft = Keyboard::Scancode::A;
+    Keyboard::Scancode scancodeRight = Keyboard::Scancode::D;
+    Keyboard::Scancode scancodeDash = Keyboard::Scancode::LShift;
+    Keyboard::Scancode scancodeShoot = Keyboard::Scancode::Space;    
+
     //manager creation
     ObjectManager* manager = ObjectManager::getInstance();
     //manager creation
@@ -92,6 +105,7 @@ public:
     void update();
     void display();
     void pauseMenu();
+    void settingsMenu();
     void mainMenu();
     void gameLoop();
 };
