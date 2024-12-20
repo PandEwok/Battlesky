@@ -1,0 +1,232 @@
+﻿  Entity.cpp
+F:\Shoot em up!\Shoot em up!\Entity.cpp(30,58): warning C4244: 'return' : conversion de 'T' en 'int', perte possible de données
+F:\Shoot em up!\Shoot em up!\Entity.cpp(30,58): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Entity.cpp(30,58): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Entity.cpp(30,58): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Entity.cpp(30,58): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Entity.cpp(31,57): warning C4244: 'return' : conversion de 'T' en 'int', perte possible de données
+F:\Shoot em up!\Shoot em up!\Entity.cpp(31,57): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Entity.cpp(31,57): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Entity.cpp(31,57): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Entity.cpp(31,57): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Entity.cpp(95,38): warning C4018: '>=' : incompatibilité signed/unsigned
+  Game.cpp
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,64): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,64): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,64): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,64): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,64): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,44): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,44): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,44): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,44): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(52,44): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:             T=unsigned int
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(84,111): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:             T=unsigned int
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(87,59): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:             T=int
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,78): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:             T=int
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(212,66): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,146): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,146): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,146): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,146): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,146): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,96): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,96): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,96): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,96): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(327,96): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,152): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,152): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,152): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,152): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,152): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,102): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,102): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,102): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,102): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(336,102): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,146): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,146): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,146): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,146): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,146): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,96): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,96): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,96): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,96): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(344,96): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,152): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,152): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,152): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,152): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,152): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,102): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,102): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,102): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,102): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(353,102): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(669,109): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(669,109): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(669,109): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(669,109): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(669,109): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(683,30): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(685,28): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(806,103): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(909,51): warning C4018: '<=' : incompatibilité signed/unsigned
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:             T=unsigned int
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,108): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:             T=unsigned int
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(927,85): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:             T=int
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(945,88): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,110): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,110): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,110): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,110): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,110): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,84): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,84): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,84): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,84): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1034,84): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:             T=unsigned int
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1037,78): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:             T=int
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1212,80): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,51): warning C4305: 'argument' : troncation de 'double' à 'T'
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,51): warning C4305:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,51): warning C4305:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,51): warning C4305:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,51): warning C4305:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,45): warning C4305: 'argument' : troncation de 'double' à 'T'
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,45): warning C4305:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,45): warning C4305:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,45): warning C4305:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1320,45): warning C4305:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,142): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,142): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,142): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,142): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,142): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,92): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,92): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,92): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,92): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1458,92): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,148): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,148): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,148): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,148): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,148): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,98): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,98): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,98): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,98): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1467,98): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,142): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,142): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,142): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,142): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,142): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,92): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,92): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,92): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,92): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1477,92): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,148): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,148): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,148): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,148): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,148): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,98): warning C4244: 'argument' : conversion de 'int' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,98): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,98): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,98): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1486,98): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:         with
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:             T=int
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:         ]
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:         and
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:         [
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:             T=float
+F:\Shoot em up!\Shoot em up!\Game.cpp(1557,80): warning C4244:         ]
+  Global.cpp
+F:\Shoot em up!\Shoot em up!\Global.cpp(7,44): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+F:\Shoot em up!\Shoot em up!\Global.cpp(7,31): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+  Manager.cpp
+  SFX.cpp
+  Shoot em up!.cpp
+F:\Shoot em up!\Shoot em up!\Shoot em up!.cpp(18,15): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+  Wave.cpp
+  Génération de code en cours...
+  Shoot em up!.vcxproj -> F:\Shoot em up!\x64\Debug\Shoot em up!.exe

@@ -1,0 +1,9 @@
+﻿  Global.cpp
+D:\Shoot em up!\Shoot em up!\Global.cpp(7,44): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+D:\Shoot em up!\Shoot em up!\Global.cpp(7,31): warning C4244: 'argument' : conversion de 'float' en 'unsigned int', perte possible de données
+  Génération de code en cours
+  36 of 798 functions ( 4.5%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    5 functions had inline decision re-evaluated but remain unchanged
+  Fin de la génération du code
+  Shoot em up!.vcxproj -> D:\Shoot em up!\x64\Release\Shoot em up!.exe
